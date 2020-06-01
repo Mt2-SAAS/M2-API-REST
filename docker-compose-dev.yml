@@ -1,0 +1,14 @@
+version: '3'
+
+services:  
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/development/django/Dockerfile
+    image: mt2web-py
+    environment:
+      - DEBUG=1
+    volumes:
+      - ./src/:/app
+    ports:
+      - 8000:8000

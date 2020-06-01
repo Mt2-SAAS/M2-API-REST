@@ -1,0 +1,39 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+
+mysql_ready() {
+python << END
+import os
+import sys
+import pymysql
+from yaml import load, Loader
+
+"""
+    Get Env's and export
+"""
+
+envs_path = '/app/config.yml'
+CONFIG = load(open(envs_path).read(), Loader=Loader)
+
+
+try:
+    pymysql.connect(
+        host=CONFIG['database']['host'],
+        port=int(CONFIG['database']['port']),
+        user=CONFIG['database']['user'],
+        password=CONFIG['database']['password'],
+        database='account')
+except pymysql.err.OperationalError:
+    sys.exit(-1)
+sys.exit(0)
+END
+}
+until mysql_ready; do
+  >&2 echo 'Esperando que el servidor MySQL este disponible...'
+  sleep 1
+done
+>&2 echo 'MySQL esta disponible'
+
+exec "$@"
