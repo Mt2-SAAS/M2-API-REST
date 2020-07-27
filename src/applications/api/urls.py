@@ -15,5 +15,6 @@ urlpatterns = [
     path('current_user/', views.CurrentUserView.as_view(), name='current_user'),
     path('current_players/', views.CurrentUserPlayersView.as_view(), name='current_user'),
     path('change_pass/', views.ChangePassword.as_view(), name='change_pass' ),
-    path('info/<str:username>', views.Info.as_view(), name='info')
+    path('info/<str:username>', views.Info.as_view(), name='info'),
+    path('server_status/', views.ServerStats.as_view(), name='stats')
 ]

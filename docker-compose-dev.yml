@@ -1,7 +1,8 @@
 version: '3'
 
-services:  
-  django:
+services:
+
+  default:
     build:
       context: .
       dockerfile: ./compose/development/django/Dockerfile

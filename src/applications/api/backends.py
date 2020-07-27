@@ -2,7 +2,7 @@ import jwt
 from django.utils.translation import ugettext_lazy as _
 from jwt import InvalidTokenError
 
-from .exceptions import TokenBackendError
+from .exceptions import InvalidToken
 from .utils import format_lazy
 
 
@@ -19,7 +19,7 @@ ALLOWED_ALGORITHMS = (
 class TokenBackend:
     def __init__(self, algorithm, signing_key=None, verifying_key=None, audience=None, issuer=None):
         if algorithm not in ALLOWED_ALGORITHMS:
-            raise TokenBackendError(format_lazy(_("Unrecognized algorithm type '{}'"), algorithm))
+            raise InvalidToken(format_lazy(_("Unrecognized algorithm type '{}'"), algorithm))
 
         self.algorithm = algorithm
         self.signing_key = signing_key
@@ -47,7 +47,7 @@ class TokenBackend:
         """
         Performs a validation of the given token and returns its payload
         dictionary.
-        Raises a `TokenBackendError` if the token is malformed, if its
+        Raises a `InvalidToken` if the token is malformed, if its
         signature check fails, or if its 'exp' claim indicates it has expired.
         """
         try:
@@ -55,5 +55,4 @@ class TokenBackend:
                               audience=self.audience, issuer=self.issuer,
                               options={'verify_aud': self.audience is not None})
         except InvalidTokenError:
-            raise TokenBackendError(_('Token is invalid or expired'))
-
+            raise InvalidToken(_('Token is invalid or expired'))

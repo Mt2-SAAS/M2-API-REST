@@ -10,9 +10,13 @@ from . import serializers
 from .authentication import AUTH_HEADER_TYPES
 from .exceptions import InvalidToken, TokenError
 from .pagination import RankinPageNumber
+from .stats import Stats
 
 
 class TokenViewBase(generics.GenericAPIView):
+    """
+        Base class for generate Token for Auth
+    """
     permission_classes = ()
     authentication_classes = ()
 
@@ -26,18 +30,24 @@ class TokenViewBase(generics.GenericAPIView):
             self.www_authenticate_realm,
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
+        """
+            Handler for method post
+        """
         serializer = self.get_serializer(data=request.data)
 
         try:
             serializer.is_valid(raise_exception=True)
-        except TokenError as e:
-            raise InvalidToken(e.args[0])
+        except TokenError as token_error:
+            raise InvalidToken(token_error.args[0])
 
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class BaseInfo(generics.GenericAPIView):
+    """
+        Class for validate if user exist in database.
+    """
     permission_classes = ()
     authentication_classes = ()
     model_class = None
@@ -59,6 +69,9 @@ class TokenObtainView(TokenViewBase):
 
 
 class TestPermision(APIView):
+    """
+        Permission test class
+    """
 
     permission_classes = (IsAuthenticated,)
 
@@ -144,3 +157,17 @@ class ChangePassword(APIView):
                 user.save()
                 return Response({'message': 'Change success'})
             return Response({'meesage': 'Password dont match'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class ServerStats(APIView):
+    """
+        Show player for current user login
+    """
+  
+    def get(self, request):
+        """
+            Endpoint use for view stats from database
+        """
+        query = Stats()
+        stats = query.get_format_stats()
+        return Response(stats)

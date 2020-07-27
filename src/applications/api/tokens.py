@@ -1,6 +1,6 @@
 from uuid import uuid4
 from django.utils.translation import ugettext_lazy as _
-from .exceptions import TokenError, TokenBackendError
+from .exceptions import TokenError, InvalidToken
 from core import settings
 from .utils import (
     aware_utcnow, datetime_from_epoch, datetime_to_epoch, format_lazy
@@ -30,8 +30,8 @@ class Token(object):
             # decodificando el token
             try:
                 self.payload = token_backend.decode(token, verify=verify)
-            except TokenBackendError:
-                raise TokenBackendError(_('Token is invalid or expired'))
+            except InvalidToken:
+                raise InvalidToken(_('Token is invalid or expired'))
             
             if verify:
                 self.verify()
@@ -151,4 +151,3 @@ class Token(object):
 class AccessToken(Token):
     token_type = 'access'
     lifetime = settings.ACCESS_TOKEN_LIFETIME
-
