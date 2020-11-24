@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+  local_static_data: {}
+
 services:
 
   django:
@@ -11,5 +14,14 @@ services:
       - DEBUG=0
     volumes:
       - ./src:/app
+      - local_static_data:/home/data/www
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    image: nginx-mt2web-py-prod
+    volumes:
+      - local_static_data:/usr/share/nginx/html/static
     ports:
-      - 8000:8000
+      - 80:80
