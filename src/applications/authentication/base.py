@@ -27,7 +27,7 @@ class AbstractBaseAccount(models.Model):
         (BANNED, _('Banned')),
     )
     password = models.CharField(_('password'), max_length=45)
-    status = models.CharField(max_length=8,default="OK", choices=STATUS_ACCOUNT)
+    status = models.CharField(max_length=8, default="OK", choices=STATUS_ACCOUNT)
 
     class Meta:
         abstract = True
@@ -39,21 +39,21 @@ class AbstractBaseAccount(models.Model):
         authenticated in templates.
         """
         return True
-    
+
     @property
     def is_banned(self):
         return self.status == BANNED
-        
+
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
         self._password = raw_password
-    
+
     def check_password(self, raw_password):
         return validate_password(self.password, raw_password)
-    
+
     def set_unusable_password(self):
         self.password = make_password(None)
-    
+
     def has_usable_password(self):
         return is_password_usable(self.password)
 
@@ -83,9 +83,3 @@ class BaseAccountManager(models.Manager):
     
     def get_by_natural_key(self, username):
         return self.get(**{self.model.USERNAME_FIELD: username})
-
-
-
-
-
-

@@ -84,7 +84,7 @@ class RankingGuilds(generics.ListAPIView):
     """ 
         Ranking information for Guild 
     """
-    queryset = Guild.objects.all().order_by('-level','-exp','-win', '-ladder_point')
+    queryset = Guild.objects.all().order_by('-level', '-exp', '-win', '-ladder_point')
     serializer_class = serializers.RankingGuildSerializer
     pagination_class = RankinPageNumber
 
@@ -93,7 +93,7 @@ class RankingPlayers(generics.ListAPIView):
     """ 
         Ranking information for Players 
     """
-    queryset = Player.objects.all().exclude(Q(name__contains='[')).order_by('-level','-exp')
+    queryset = Player.objects.all().exclude(Q(name__contains='[')).order_by('-level', '-exp')
     serializer_class = serializers.RankingPlayerSerializer
     pagination_class = RankinPageNumber
 

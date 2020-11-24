@@ -54,14 +54,13 @@ class Player(models.Model):
     horse_hp_droptime = models.PositiveIntegerField()
     horse_riding = models.IntegerField()
     horse_skill_point = models.SmallIntegerField()
-    pz = models.IntegerField()
 
     class Meta:
         managed = False
         db_table = 'player'
 
     def __str__(self):
-        return self.name 
+        return f'{self.name}'
 
 
 class Guild(models.Model):
@@ -77,14 +76,10 @@ class Guild(models.Model):
     loss = models.IntegerField()
     ladder_point = models.IntegerField()
     gold = models.IntegerField()
-    dungeon_ch = models.IntegerField()
-    dungeon_map = models.PositiveIntegerField()
-    dungeon_cooldown = models.PositiveIntegerField()
-    dungeon_start = models.IntegerField()
 
     class Meta:
         managed = False
         db_table = 'guild'
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
