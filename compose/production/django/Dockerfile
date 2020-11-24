@@ -12,6 +12,7 @@ RUN set -ex \
     && apk add zlib-dev jpeg-dev mariadb-dev \
     && apk add --no-cache --virtual .build-deps build-base \
     && pip install -r /app/requirements.txt \
+    && pip install gunicorn \
     && apk del .build-deps
 
 COPY ./compose/production/django/start /
