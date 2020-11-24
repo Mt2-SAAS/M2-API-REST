@@ -1,32 +1,33 @@
 [![Build Status](https://travis-ci.org/luisito666/Mt2Web.py-V2.svg?branch=develop)](https://travis-ci.org/luisito666/Mt2Web.py-V2)
 
-*[Español](README.md) ∙ [English](README-en.md) 
+[Español](README.md) ∙ *[English](README-en.md) 
 
 # Mt2Web.py-V2
 
-Nueva generacion de web's para servidores de metin2
+Backend for the project [M2Frontend](https://github.com/luisito666/M2Frontend)
 
-## Motivación.
+## Motivation.
 
-La principal motivación que da surgimiento a este proyecto, es tener una web de Metin2 con los estándares actualizados, un código limpio y fácil de leer y mantener.
+The main goal of this project is get a Metin2 Web page with the last standars of the web development industry, and a code easy to read and mantain.
 
-## Caracteristicas principales.
+## Advantage
 
-1. Hecha en python con ayuda de un framework llamado Django.
-2. Implementacion de Docker y Docker Compose para la automatización del despliegue.
-3. Implementacion de redis y celery para tareas programadas.
-4. Facil configuracion con ayuda del formato yaml.
-5. Seguridad avanzada.
+1. Made with python and django.
+2. Implements docker for development and production environment.
+3. Implements redis and celery for async task and schedule task.
+4. Easy to configurate thanks to yaml format.
+5. Advanced security
 
-## Requerimientos.
+
+## Requirements.
 
 1. git
 2. docker
 3. docker compose
 4. make
-5. Sistema operativo Linux (Ubuntu, Centos etc..), Mac OS
+5. Operatin system like Linux (Ubuntu, Centos etc..), Mac OS
 
-## ¿Como instalar?
+## How to Install?
 
 ```
 git clone git@github.com:luisito666/Mt2Web.py-V2.git
@@ -34,11 +35,11 @@ cd Mt2Web.py/
 make build
 ```
 
-## ¿Como Iniciar?
+## ¿How to Start?
 
-Antes de iniciar el proyecto es necesario editar el archivo config.yml y agregar los parametros necesarios para el funcionamiento.
+Before of start this projects is recomended edit the config.yml file and add the correct parameters.
 
-el archivo se encuentra en la siguiente ruta 'src/config.yml'
+the file is locate in the next path 'src/config.yml'
 
 ```
 database:
@@ -67,19 +68,18 @@ register:
   mail_activate_account: False
 ```
 
-Despues de lo anterior se ejecuta este comando para iniciar el proyecto.
+After to this run the startup command.
 
 ```
 make run
 ```
 
-Nota: El comando anterior ejecutar el proyecto en modo desarrollador.
+Nota: the previous command run the project in development environment.
 
-### Iniciar modo produccion.
+### Run production mode
 
 ```
 make run-prod
 ```
 
-Nota: Es recomendado usar este comando cuando vamos a montar la pagina para su uso.
-
+Nota: this command is recomend to run the project in the production envionment
