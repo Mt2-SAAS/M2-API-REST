@@ -2,7 +2,8 @@
     Base model for the app
 """
 from django.db import models
-from django.utils.crypto import get_random_string
+from django.conf import settings
+from django.utils.crypto import get_random_string, salted_hmac
 
 # Local Hasher
 from .hashers import (
@@ -57,6 +58,15 @@ class AbstractBaseAccount(models.Model):
     def has_usable_password(self):
         return is_password_usable(self.password)
 
+    def get_session_auth_hash(self):
+        """
+        Return an HMAC of the password field.
+        """
+        key_salt = "django.contrib.auth.models.AbstractBaseUser.get_session_auth_hash"
+        return salted_hmac(
+            key_salt,
+            self.password,
+        ).hexdigest()
 
 # Base Manager
 class BaseAccountManager(models.Manager):
