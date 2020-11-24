@@ -62,9 +62,6 @@ class AbstractAccount(AbstractBaseAccount):
     REQUIRED_FIELDS = ['real_name', 'social_id', 'email']
 
     class Meta:
-        db_table = 'account'
-        verbose_name = _('Account')
-        verbose_name_plural = _('Accounts')
         abstract = True
 
     def __str__(self):
@@ -75,3 +72,12 @@ class Account(AbstractAccount):
     """
         You can add more options to account
     """
+
+    class Meta:
+        """
+            This model are legacy model and no need migrations.
+        """
+        managed = False
+        db_table = 'account'
+        verbose_name = _('Account')
+        verbose_name_plural = _('Accounts')
