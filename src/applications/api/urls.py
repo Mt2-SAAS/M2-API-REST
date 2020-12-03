@@ -14,7 +14,8 @@ urlpatterns = [
     path('player_rank/', views.RankingPlayers.as_view(), name='player_rank'),
     path('current_user/', views.CurrentUserView.as_view(), name='current_user'),
     path('current_players/', views.CurrentUserPlayersView.as_view(), name='current_user'),
-    path('change_pass/', views.ChangePassword.as_view(), name='change_pass' ),
+    path('change_pass/', views.ChangePassword.as_view(), name='change_pass'),
     path('info/<str:username>', views.Info.as_view(), name='info'),
-    path('server_status/', views.ServerStats.as_view(), name='stats')
+    path('server_status/', views.ServerStats.as_view(), name='stats'),
+    path('downloads/', views.DownloadApiView.as_view(), name='downloads')
 ]
