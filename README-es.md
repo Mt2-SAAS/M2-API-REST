@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/luisito666/Mt2Web.py-V2.svg?branch=develop)](https://travis-ci.org/luisito666/Mt2Web.py-V2)
 
-*[Español](README.md) ∙ [English](README-en.md) 
+[English](README-en.md) ∙ *[Español](README.md) 
 
 # Mt2Web.py-V2
 
@@ -8,13 +8,13 @@ Backend para el proyecto [M2Frontend](https://github.com/luisito666/M2Frontend)
 
 ## Motivación.
 
-La principal motivación que da surgimiento a este proyecto, es tener una web de Metin2 con los estándares actualizados, un código limpio y fácil de leer y mantener.
+El objetivo principal de este proyecto es proporcionar una forma rápida de implementar servicios para Servidores Privados de Metin2.
 
 ## Ventajas.
 
-1. Hecha en python con ayuda de un framework llamado Django.
-2. Implementacion de Docker y Docker Compose para la automatización del despliegue.
-3. Implementacion de redis y celery para tareas programadas.
+1. Hecha en python.
+2. Rapida implementacion de entornos de desarrollo y producion
+3. Facil de configurar donaciones gracias a PaymentWall
 4. Facil configuracion con ayuda del formato yaml.
 5. Seguridad avanzada.
 
@@ -24,13 +24,13 @@ La principal motivación que da surgimiento a este proyecto, es tener una web de
 2. docker
 3. docker compose
 4. make
-5. Sistema operativo Linux (Ubuntu, Centos etc..), Mac OS
+5. Sistema operativo Linux (Ubuntu, Centos etc..), Mac OS, Windows 10
 
 ## ¿Como instalar?
 
 ```
-git clone git@github.com:luisito666/Mt2Web.py-V2.git
-cd Mt2Web.py/
+git clone git@github.com:New-Blod-Team/M2-API-REST.git
+cd M2-API-REST/
 make build
 ```
 
@@ -43,8 +43,8 @@ el archivo se encuentra en la siguiente ruta 'src/config.yml'
 ```
 database:
   user: root
-  password: 
-  host: 
+  password: 'tu_pasword'
+  host: 0.0.0.0
   port: 3306
 server:
   name: 'Metin2 XxX'
@@ -81,5 +81,4 @@ Nota: El comando anterior ejecutar el proyecto en modo desarrollador.
 make run-prod
 ```
 
-Nota: Es recomendado usar este comando cuando vamos a montar la pagina para su uso.
-
+Nota: Es recomendado usar este comando cuando vamos a usar el servicio en producion.
