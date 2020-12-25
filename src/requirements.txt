@@ -1,18 +1,18 @@
 # Django Stuff
-asgiref==3.2.3
-Django==3.0.6
-djangorestframework==3.10.3
-django-cors-headers==3.2.1
-pytz==2019.3
-sqlparse==0.3.0
+asgiref==3.3.1
+Django==3.1.4
+djangorestframework==3.12.2
+django-cors-headers==3.6.0
+pytz==2020.5
+sqlparse==0.4.1
 
 # SQL Conections
 mysqlclient==1.4.6
-PyMySQL==0.9.3
+PyMySQL==0.10.1
 
 # Other Stuff
-PyYAML==5.1.2
-PyJWT==1.7.1
+PyYAML==5.3.1
+PyJWT==2.0.0
 
 # PaymentWall
-paymentwall-python==1.0.7
+paymentwall-python==1.0.8
