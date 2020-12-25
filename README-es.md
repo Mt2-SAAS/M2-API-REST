@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/luisito666/Mt2Web.py-V2.svg?branch=develop)](https://travis-ci.org/luisito666/Mt2Web.py-V2)
 
-[English](README-en.md) ∙ *[Español](README.md) 
+[English](README.md) ∙ *[Español](README-es.md) 
 
 # Mt2Web.py-V2
 
