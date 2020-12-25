@@ -11,7 +11,7 @@ from .authentication import AUTH_HEADER_TYPES
 from .exceptions import InvalidToken, TokenError
 from .pagination import RankinPageNumber
 from .stats import Stats
-
+from .models import Download
 
 class TokenViewBase(generics.GenericAPIView):
     """
@@ -82,7 +82,7 @@ class TestPermision(APIView):
 
 class RankingGuilds(generics.ListAPIView):
     """ 
-        Ranking information for Guild 
+        Ranking information for Guild
     """
     queryset = Guild.objects.all().order_by('-level', '-exp', '-win', '-ladder_point')
     serializer_class = serializers.RankingGuildSerializer
@@ -91,11 +91,17 @@ class RankingGuilds(generics.ListAPIView):
 
 class RankingPlayers(generics.ListAPIView):
     """ 
-        Ranking information for Players 
+        Ranking information for Players
     """
     queryset = Player.objects.all().exclude(Q(name__contains='[')).order_by('-level', '-exp')
     serializer_class = serializers.RankingPlayerSerializer
     pagination_class = RankinPageNumber
+
+
+class DownloadApiView(generics.ListAPIView):
+    permission_classes = (AllowAny,)
+    queryset = Download.objects.publish()
+    serializer_class = serializers.DownloadSerializer
 
 
 class Info(BaseInfo):
@@ -163,7 +169,7 @@ class ServerStats(APIView):
     """
         Show player for current user login
     """
-  
+
     def get(self, request):
         """
             Endpoint use for view stats from database

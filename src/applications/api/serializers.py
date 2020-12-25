@@ -85,7 +85,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('login', 'password', 'email', 'real_name', 'social_id')        
+        fields = ('login', 'password', 'email', 'real_name', 'social_id')
         extra_kwargs = {'password': {'write_only': True}}
 
 
@@ -95,7 +95,7 @@ class CurrentUserSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = User
-        fields = ('login', 'status', 'real_name', 
+        fields = ('login', 'status', 'real_name',
         'email', 'coins', 'create_time')
 
 
@@ -130,3 +130,11 @@ class ChangePasswordSerializer(serializers.Serializer):
         if data['new_password'] != data['new_password_again']:
             raise serializers.ValidationError('password must be equal')
         return data
+
+class DownloadSerializer(serializers.Serializer):
+    id = serializers.UUIDField(read_only=True)
+    provider = serializers.CharField(max_length=30)
+    weight = serializers.DecimalField(max_digits=5, decimal_places=3)
+    link = serializers.CharField(max_length=100)
+    create_at = serializers.DateTimeField()
+    modified_at = serializers.DateTimeField()
