@@ -13,3 +13,6 @@ PyMySQL==0.9.3
 # Other Stuff
 PyYAML==5.1.2
 PyJWT==1.7.1
+
+# PaymentWall
+paymentwall-python==1.0.7

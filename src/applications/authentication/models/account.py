@@ -12,7 +12,7 @@ from datetime import datetime, timedelta
 from django.utils.translation import gettext_lazy as _
 
 # From local base models and managers
-from .base import (
+from ..base import (
     BaseAccountManager,
     AbstractBaseAccount
 )
@@ -45,7 +45,7 @@ class AbstractAccount(AbstractBaseAccount):
     address = models.CharField(max_length=128, blank=True, null=True)
     coins = models.IntegerField(default=0)
     create_time = models.DateTimeField(default=timezone.now)
-    availdt = models.DateTimeField(db_column='availDt',default=settings.ACTIVATE)
+    availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)
     gold_expire = models.DateTimeField(default=settings.BUFFSTUF)
     silver_expire = models.DateTimeField(default=settings.BUFFSTUF)
     safebox_expire = models.DateTimeField(default=settings.BUFFSTUF)
@@ -75,7 +75,7 @@ class Account(AbstractAccount):
 
     class Meta:
         """
-            This model are legacy model and no need migrations.
+            This are a legacy model and no need migrations.
         """
         managed = False
         db_table = 'account'

@@ -134,7 +134,7 @@ class Account(AbstractAccount):
 
     class Meta:
         """
-            This model are legacy model and no need migrations.
+            This are a legacy model and no need migrations.
         """
         managed = False
         db_table = 'account'
