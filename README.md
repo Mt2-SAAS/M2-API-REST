@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/luisito666/Mt2Web.py-V2.svg?branch=develop)](https://travis-ci.org/luisito666/Mt2Web.py-V2)
 
-[Español](README.md) ∙ *[English](README-en.md) 
+*[English](README-en.md) ∙ [Español](README.md)   
 
 # Mt2Web.py-V2
 
@@ -8,13 +8,13 @@ Backend for the project [M2Frontend](https://github.com/luisito666/M2Frontend)
 
 ## Motivation.
 
-The main goal of this project is get a Metin2 Web page with the last standars of the web development industry, and a code easy to read and mantain.
+The main goal of this project is provide a rapid way to implements services for Metin2 PServers.
 
 ## Advantage
 
-1. Made with python and django.
-2. Implements docker for development and production environment.
-3. Implements redis and celery for async task and schedule task.
+1. Made with python.
+2. Rapid deployment for development and production
+3. Easy way to configure donations with paymentwall
 4. Easy to configurate thanks to yaml format.
 5. Advanced security
 
@@ -25,13 +25,13 @@ The main goal of this project is get a Metin2 Web page with the last standars of
 2. docker
 3. docker compose
 4. make
-5. Operatin system like Linux (Ubuntu, Centos etc..), Mac OS
+5. Operatin system like Linux (Ubuntu, Centos etc..), Mac OS, Windows 10.
 
 ## How to Install?
 
 ```
-git clone git@github.com:luisito666/Mt2Web.py-V2.git
-cd Mt2Web.py/
+git clone git@github.com:New-Blod-Team/M2-API-REST.git
+cd M2-API-REST/
 make build
 ```
 
@@ -44,8 +44,8 @@ the file is locate in the next path 'src/config.yml'
 ```
 database:
   user: root
-  password: 
-  host: 
+  password: 'your_db_pasword'
+  host: 0.0.0.0
   port: 3306
 server:
   name: 'Metin2 XxX'
