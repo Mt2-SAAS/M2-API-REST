@@ -18,8 +18,8 @@ class PaymentLogs(Base):
         return f'<PaymentLogs ({self.pk})>'
 
     class Meta:
-        verbose_name = 'Payment Log'
-        verbose_name_plural = 'Payment Logs'
+        verbose_name = 'PaymentLog'
+        verbose_name_plural = 'PaymentLogs'
 
 
 class PaymentCode(Base):

@@ -13,7 +13,7 @@ shell:
 	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose run --rm default python manage.py shell
 
 enter:
-	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose run --rm default sh
+	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose run --rm --service-ports default sh
 
 # Production commands
 
