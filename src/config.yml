@@ -1,7 +1,7 @@
 database:
   user: root
-  password: M3t1n2.2019$
-  host: 192.168.0.15
+  password: 'your_pasword'
+  host: 0.0.0.0
   port: 3306
 server:
   name: 'Metin2 XxX'
@@ -18,7 +18,7 @@ captcha:
 mail:
   host: 0.0.0.0
   port: 25
-  password: 'tu_pasword'
-  user: 'tu_usuario@example.com'
+  password: 'your_pasword'
+  user: 'your_user@example.com'
 register:
   mail_activate_account: False
