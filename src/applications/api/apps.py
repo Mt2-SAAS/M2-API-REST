@@ -1,8 +1,8 @@
 from django.apps import AppConfig
 
 
-class AuthenticationConfig(AppConfig):
+class APIConfig(AppConfig):
     """
-    docstring
+        API Module.
     """
     name = 'api'

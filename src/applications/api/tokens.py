@@ -18,7 +18,7 @@ class Token(object):
         """
         if self.token_type is None or self.lifetime is None:
             raise TokenError(_('Cannot create token with no type or lifetime'))
-        
+
         self.token = token
         self.current_time = aware_utcnow()
 
@@ -32,7 +32,7 @@ class Token(object):
                 self.payload = token_backend.decode(token, verify=verify)
             except InvalidToken:
                 raise InvalidToken(_('Token is invalid or expired'))
-            
+
             if verify:
                 self.verify()
         else:
@@ -62,7 +62,7 @@ class Token(object):
 
     def get(self, key, default=None):
         return self.payload.get(key, default)
-    
+
     def __str__(self):
         """
         Signs and returns a token as a base64 encoded string.
@@ -79,7 +79,7 @@ class Token(object):
             raise TokenError(_('Token has no id'))
 
         self.verify_token_type()
-    
+
     def verify_token_type(self):
         """
         Ensures that the token type claim is present and has the correct value.
@@ -91,7 +91,7 @@ class Token(object):
 
         if self.token_type != token_type:
             raise TokenError(_('Token has wrong type'))
-    
+
     def set_jti(self):
         """
         Populates the "jti" claim of a token with a string where there is a
@@ -101,17 +101,17 @@ class Token(object):
         https://tools.ietf.org/html/rfc7519#section-4.1.7
         """
         self.payload['jti'] = uuid4().hex
-    
+
     def set_exp(self, claim='exp', from_time=None, lifetime=None):
         """
         Updates the expiration time of a token.
         """
         if from_time is None:
             from_time = self.current_time
-        
+
         if lifetime is None:
             lifetime = self.lifetime
-        
+
         self.payload[claim] = datetime_to_epoch(from_time + lifetime)
 
     def check_exp(self, claim='exp', current_time=None):
@@ -122,12 +122,12 @@ class Token(object):
         """
         if current_time is None:
             current_time = self.current_time
-        
+
         try:
             claim_value = self.payload[claim]
         except KeyError:
             raise TokenError(format_lazy(_("Token has no '{}' claim"), claim))
-        
+
         claim_time = datetime_from_epoch(claim_value)
         if claim_time <= current_time:
             raise TokenError(format_lazy(_("Token '{}' claim has expired"), claim))
@@ -141,7 +141,7 @@ class Token(object):
         user_id = getattr(user, settings.USER_ID_FIELD)
         if not isinstance(user_id, int):
             user_id = str(user_id)
-        
+
         token = cls()
         token[settings.USER_ID_CLAIM] = user_id
 

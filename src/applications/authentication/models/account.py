@@ -12,29 +12,15 @@ from datetime import datetime, timedelta
 from django.utils.translation import gettext_lazy as _
 
 # From local base models and managers
-from .base import (
-    BaseAccountManager,
+from ..base import (
     AbstractBaseAccount
 )
 
+# Local Manager
+from .manager import AccountManager
+
 # Local Settings
 from core import settings
-
-
-class AccountManager(BaseAccountManager):
-
-    def _create_account(self, login, password, email, real_name, social_id):
-        if not login:
-            raise ValueError('The given login must be set')
-
-        email = self.normalize_email(email)
-        user = self.model(login=login, email=email, real_name=real_name, social_id=social_id)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_account(self, login, password=None, email=None, real_name=None, social_id=None):
-        return self._create_account(login, password, email, real_name, social_id)
 
 
 class AbstractAccount(AbstractBaseAccount):
@@ -45,7 +31,7 @@ class AbstractAccount(AbstractBaseAccount):
     address = models.CharField(max_length=128, blank=True, null=True)
     coins = models.IntegerField(default=0)
     create_time = models.DateTimeField(default=timezone.now)
-    availdt = models.DateTimeField(db_column='availDt',default=settings.ACTIVATE)
+    availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)
     gold_expire = models.DateTimeField(default=settings.BUFFSTUF)
     silver_expire = models.DateTimeField(default=settings.BUFFSTUF)
     safebox_expire = models.DateTimeField(default=settings.BUFFSTUF)
@@ -75,7 +61,7 @@ class Account(AbstractAccount):
 
     class Meta:
         """
-            This model are legacy model and no need migrations.
+            This are a legacy model and no need migrations.
         """
         managed = False
         db_table = 'account'

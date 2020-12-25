@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'rest_framework',
     # Local APPS
     'applications.authentication',
-    'applications.player'
+    'applications.api',
+    'applications.player',
+    # Payd modules.
+    'applications.payment',
 ]
 
 MIDDLEWARE = [
@@ -222,3 +225,7 @@ USER_ID_CLAIM = 'user_id'
 ACCESS_TOKEN_LIFETIME = timedelta(minutes=15)
 AUTH_HEADER_TYPES = ('Bearer',)
 AUTH_TOKEN_CLASSES = ('applications.api.tokens.AccessToken',)
+
+# PaymentWall Config
+PAYMENTWALL_PUBLIC_KEY = 'c6284543bdde15c732dfca9af6143ab7'
+PAYMENTWALL_PRIVATE_KEY = '0291a417377f0d8cacc14f48dc70e767'
