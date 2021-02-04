@@ -28,7 +28,6 @@ class AbstractAccount(AbstractBaseAccount):
     real_name = models.CharField(max_length=16, blank=True, null=True)
     social_id = models.CharField(max_length=13)
     email = models.CharField(max_length=64)
-    address = models.CharField(max_length=128, blank=True, null=True)
     coins = models.IntegerField(default=0)
     create_time = models.DateTimeField(default=timezone.now)
     availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)

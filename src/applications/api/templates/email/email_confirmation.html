@@ -1,0 +1,21 @@
+<h3>Bienvenido a {{ servername }}. </h3>
+
+<p>Por favor guarda este email para futuras referencias. La informacion de tu cuenta es la siguiente:</p>
+
+----------------------------
+
+<p>Nombre de usuario: <strong>{{ user.login }}</strong></p>
+<p>URL del Sitio: {{ serverUrl }}  <p>
+
+----------------------------
+<p>Usa el siguiente link para activar tu cuenta: <a href="{{ serverUrl }}/active_user/{{ user.email_hash }}">{{ serverUrl }}/active_user/{{ user.email_hash }}</a> </p>
+----------------------------
+
+<p>Tu clave ha sido encriptada en nuestra base de datos. Si la olvidaste
+podras solicitar una nueva la cual sera activada en la misma forma que esta
+cuenta. </p>
+
+<p>Gracias por registrarte.</p>
+
+--
+<p>Att: Staff {{ servername }}</p>

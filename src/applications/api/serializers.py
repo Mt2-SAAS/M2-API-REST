@@ -1,9 +1,17 @@
+"""
+    Serializers
+"""
+
+from django.utils.translation import ugettext_lazy as _
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
+
 from applications.authentication import authenticate
 from rest_framework import exceptions, serializers
-from django.utils.translation import ugettext_lazy as _
 
 from .state import User
 from .tokens import AccessToken
+from .utils import get_string_and_html
 
 
 class PasswordField(serializers.CharField):
@@ -62,6 +70,10 @@ class TokenObtainSerializer(serializers.Serializer):
 
 
 class TokenObtainPairSerializer(TokenObtainSerializer):
+    """
+        Helper class for create token
+    """
+
     @classmethod
     def get_token(cls, user):
         return AccessToken.for_user(user)
@@ -81,7 +93,15 @@ class RegisterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_account(**validated_data)
         user.save()
+        self.send_activation_email(user)
         return user
+
+    def send_activation_email(self, user):
+        html_content, string_content = get_string_and_html('email/email_confirmation.html', {'user': user})
+        subject = _('Bienvenido a ') + settings.SERVERNAME
+        email = EmailMultiAlternatives(subject, string_content, '', [user.email])
+        email.attach_alternative(html_content, "text/html")
+        email.send()
 
     class Meta:
         model = User

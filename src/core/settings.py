@@ -25,16 +25,14 @@ CONFIG = load(open(BASE_DIR + '/config.yml').read(), Loader=Loader)
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nr0#kv#85$m!*s6t$1s@1#z%2en-*3n5i853^$vy=4p!nddkfn'
+SECRET_KEY = CONFIG['server']['secret']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ['DEBUG'])
 
-ALLOWED_HOSTS = ['localhost', CONFIG['server']['domain'], 'www.' + CONFIG['server']['domain'] ]
-
+ALLOWED_HOSTS = ['localhost', CONFIG['server']['domain'], 'www.' + CONFIG['server']['domain']]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -119,7 +117,7 @@ DATABASES = {
         'HOST': CONFIG['database']['host'],
         'PORT': CONFIG['database']['port'],
         'OPTIONS': {
-            'init_command': "CREATE DATABASE IF NOT EXISTS django_metin2;" ,
+            'init_command': "CREATE DATABASE IF NOT EXISTS django_metin2;",
         },
     },
 }
@@ -185,14 +183,18 @@ CORS_ORIGIN_WHITELIST = [
 # Configurations ingame
 # Buff duration
 # BUFFSTUF = '2018-08-13T00:00:00'
-BUFFSTUF = datetime(2018, 8, 13, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+
+SERVERNAME = CONFIG['server']['name']
+SERVERURL = CONFIG['server']['url']
+
+BUFFSTUF = datetime(2030, 8, 13, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
 # Final Stuff
-FINALSTUFF = datetime(2020, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+FINALSTUFF = datetime(2030, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
 # Config for storage the correct date of the activation
-if CONFIG['register']['mail_activate_account']:
-    ACTIVATE = datetime(2025, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+if CONFIG['register']['send_activation_email']:
+    ACTIVATE = datetime(2035, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 else:
     ACTIVATE = datetime(2009, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
@@ -200,7 +202,6 @@ else:
 CUSTOM_AUTH_USER_MODEL = 'authentication.Account'
 
 CUSTOM_AUTHENTICATION_BACKENDS = ['applications.authentication.backends.ModelBackend']
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -212,9 +213,8 @@ REST_FRAMEWORK = {
 BANNED = 'BLOCK'
 ACCEPT = 'OK'
 
-
 # Config of JWT Token
-ALGORITHM = 'HS256' 
+ALGORITHM = 'HS256'
 SIGNING_KEY = SECRET_KEY
 VERIFYING_KEY = None
 AUDIENCE = None
@@ -227,5 +227,13 @@ AUTH_HEADER_TYPES = ('Bearer',)
 AUTH_TOKEN_CLASSES = ('applications.api.tokens.AccessToken',)
 
 # PaymentWall Config
-PAYMENTWALL_PUBLIC_KEY = 'c6284543bdde15c732dfca9af6143ab7'
-PAYMENTWALL_PRIVATE_KEY = '0291a417377f0d8cacc14f48dc70e767'
+PAYMENTWALL_PUBLIC_KEY = CONFIG['paymentwall']['public_key']
+PAYMENTWALL_PRIVATE_KEY = CONFIG['paymentwall']['private_key']
+
+# Mail Configuration
+EMAIL_USE_TLS = True
+EMAIL_HOST = CONFIG['mail']['host']
+EMAIL_PORT = CONFIG['mail']['port']
+EMAIL_HOST_USER = CONFIG['mail']['user']
+EMAIL_HOST_PASSWORD = CONFIG['mail']['password']
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend'

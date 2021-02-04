@@ -21,6 +21,7 @@ from .manager import AccountManager
 # Local Settings
 from core import settings
 
+
 class AbstractAccount(AbstractBaseAccount):
     login = models.CharField(unique=True, max_length=30)
     real_name = models.CharField(max_length=16, blank=True, null=True)
@@ -28,7 +29,6 @@ class AbstractAccount(AbstractBaseAccount):
     email = models.CharField(max_length=64)
     phone1 = models.CharField(max_length=16, blank=True, null=True)
     phone2 = models.CharField(max_length=16, blank=True, null=True)
-    address = models.CharField(max_length=128, blank=True, null=True)
     zipcode = models.CharField(max_length=7, blank=True, null=True)
     create_time = models.DateTimeField(default=timezone.now)
     question1 = models.CharField(max_length=48, blank=True, null=True)

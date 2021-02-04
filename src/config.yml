@@ -1,6 +1,6 @@
 database:
   user: root
-  password: 'your_pasword'
+  password: 'database-password'
   host: 0.0.0.0
   port: 3306
 server:
@@ -8,6 +8,7 @@ server:
   url: 'https://www.example.com'
   domain: 'example.com'
   timezone: 'America/Bogota'
+  secret: 'some-secret-please-change'
 paymentwall:
   public_key: ''
   private_key: ''
@@ -18,7 +19,7 @@ captcha:
 mail:
   host: 0.0.0.0
   port: 25
-  password: 'your_pasword'
-  user: 'your_user@example.com'
+  password: 'your-password'
+  user: 'your-user@example.com'
 register:
-  mail_activate_account: False
+  send_activation_email: False

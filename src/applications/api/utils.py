@@ -5,6 +5,8 @@ from datetime import datetime
 from django.conf import settings
 from django.utils.functional import lazy
 from django.utils.timezone import is_naive, make_aware, utc
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
 
 
 def make_utc(dt):
@@ -28,6 +30,17 @@ def datetime_from_epoch(ts):
 
 def format_lazy(s, *args, **kwargs):
     return s.format(*args, **kwargs)
+
+
+def get_string_and_html(file, values):
+    intermedia_values = {
+        'servername': settings.SERVERNAME,
+        'serverUrl': settings.SEVERURL
+    }
+    final_values = {**intermedia_values, **values}
+    html_content = render_to_string(file, final_values)
+    text_content = strip_tags(html_content)
+    return html_content, text_content
 
 
 format_lazy = lazy(format_lazy, str)

@@ -29,6 +29,7 @@ class AbstractBaseAccount(models.Model):
     )
     password = models.CharField(_('password'), max_length=45)
     status = models.CharField(max_length=8, default="OK", choices=STATUS_ACCOUNT)
+    address = models.CharField(max_length=128, blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -44,6 +45,13 @@ class AbstractBaseAccount(models.Model):
     @property
     def is_banned(self):
         return self.status == BANNED
+
+    @property
+    def email_hash(self):
+        return self.address
+
+    def set_email_hash(self):
+        self.address = get_random_string(48)
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
