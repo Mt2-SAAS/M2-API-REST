@@ -47,7 +47,7 @@ def PayWidget(user, email):
 
 
 class UsePaymentCode(APIView):
-    parser_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, code):
         user = request.user
