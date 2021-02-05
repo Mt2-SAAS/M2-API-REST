@@ -7,6 +7,8 @@ services:
       context: .
       dockerfile: ./compose/development/django/Dockerfile
     image: mt2web-py
+    env_file: 
+      - ./.environment/development/.django
     environment:
       - DEBUG=1
     volumes:

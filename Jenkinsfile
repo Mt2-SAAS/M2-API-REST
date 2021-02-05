@@ -14,7 +14,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                   dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/development/django/Dockerfile .") 
+                   dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .") 
                 }
             }
         }
@@ -39,4 +39,3 @@ pipeline {
         }
     }
 }
-

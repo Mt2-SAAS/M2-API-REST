@@ -13,25 +13,20 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import pytz
 from datetime import datetime, timedelta
-from yaml import load, Loader
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Cargando la configuracion del proyecto
-CONFIG = load(open(BASE_DIR + '/config.yml').read(), Loader=Loader)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nr0#kv#85$m!*s6t$1s@1#z%2en-*3n5i853^$vy=4p!nddkfn'
+SECRET_KEY = os.environ['SERVER_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ['DEBUG'])
 
-ALLOWED_HOSTS = ['localhost', CONFIG['server']['domain'], 'www.' + CONFIG['server']['domain'] ]
-
+ALLOWED_HOSTS = ['localhost', os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
 
 # Application definition
 
@@ -94,10 +89,10 @@ DATABASES = {
     'account': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'account',
-        'USER': CONFIG['database']['user'],
-        'PASSWORD': CONFIG['database']['password'],
-        'HOST': CONFIG['database']['host'],
-        'PORT': CONFIG['database']['port'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'HOST': os.environ['DATABASE_HOST'],
+        'PORT': os.environ['DATABASE_PORT'],
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES';",
         },
@@ -105,19 +100,19 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_metin2',
-        'USER': CONFIG['database']['user'],
-        'PASSWORD': CONFIG['database']['password'],
-        'HOST': CONFIG['database']['host'],
-        'PORT': CONFIG['database']['port'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'HOST': os.environ['DATABASE_HOST'],
+        'PORT': os.environ['DATABASE_PORT'],
         'OPTIONS': {},
     },
     'player': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'player',
-        'USER': CONFIG['database']['user'],
-        'PASSWORD': CONFIG['database']['password'],
-        'HOST': CONFIG['database']['host'],
-        'PORT': CONFIG['database']['port'],
+        'USER': os.environ['DATABASE_USER'],
+        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'HOST': os.environ['DATABASE_HOST'],
+        'PORT': os.environ['DATABASE_PORT'],
         'OPTIONS': {
             'init_command': "CREATE DATABASE IF NOT EXISTS django_metin2;" ,
         },
@@ -185,14 +180,19 @@ CORS_ORIGIN_WHITELIST = [
 # Configurations ingame
 # Buff duration
 # BUFFSTUF = '2018-08-13T00:00:00'
-BUFFSTUF = datetime(2018, 8, 13, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+
+SERVERNAME = os.environ['SERVER_NAME']
+
+SERVERURL = os.environ['SERVER_URL']
+
+BUFFSTUF = datetime(2030, 8, 13, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
 # Final Stuff
 FINALSTUFF = datetime(2020, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
 # Config for storage the correct date of the activation
-if CONFIG['register']['mail_activate_account']:
-    ACTIVATE = datetime(2025, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+if os.environ['MAIL_SEND_ACTIVATION'] == 1:
+    ACTIVATE = datetime(2035, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 else:
     ACTIVATE = datetime(2009, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
@@ -227,5 +227,13 @@ AUTH_HEADER_TYPES = ('Bearer',)
 AUTH_TOKEN_CLASSES = ('applications.api.tokens.AccessToken',)
 
 # PaymentWall Config
-PAYMENTWALL_PUBLIC_KEY = 'c6284543bdde15c732dfca9af6143ab7'
-PAYMENTWALL_PRIVATE_KEY = '0291a417377f0d8cacc14f48dc70e767'
+PAYMENTWALL_PUBLIC_KEY = os.environ['PAYMENTWALL_PUBLIC']
+PAYMENTWALL_PRIVATE_KEY = os.environ['PAYMENTWALL_PRIVATE']
+
+# Mail Configuration
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ['MAIL_HOST']
+EMAIL_PORT = os.environ['MAIL_PORT']
+EMAIL_HOST_USER = os.environ['MAIL_USER']
+EMAIL_HOST_PASSWORD = os.environ['MAIL_PASSWORD']
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' if DEBUG else 'django.core.mail.backends.smtp.EmailBackend'

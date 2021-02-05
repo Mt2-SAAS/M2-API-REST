@@ -25,6 +25,6 @@ class AccountAdmin(admin.ModelAdmin):
             defaults['form'] = self.add_form
         defaults.update(kwargs)
         return super().get_form(request, obj, **defaults)
-    
+
 
 admin.site.register(Account, AccountAdmin)
