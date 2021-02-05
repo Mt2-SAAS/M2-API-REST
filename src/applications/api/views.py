@@ -13,6 +13,7 @@ from .pagination import RankinPageNumber
 from .stats import Stats
 from .models import Download
 
+
 class TokenViewBase(generics.GenericAPIView):
     """
         Base class for generate Token for Auth

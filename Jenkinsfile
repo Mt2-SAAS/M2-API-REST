@@ -14,16 +14,16 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                   dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/development/django/Dockerfile .") 
+                   dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .") 
                 }
             }
         }
 
-        stage('Testing') {
-            steps {
-                sh "docker run ${dockerImage.id} python manage.py test"
-            }
-        }
+        // stage('Testing') {
+        //     steps {
+        //         sh "docker run ${dockerImage.id} python manage.py test"
+        //     }
+        // }
 
         stage('Publish') {
             when {
@@ -39,4 +39,3 @@ pipeline {
         }
     }
 }
-
