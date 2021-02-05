@@ -19,11 +19,11 @@ pipeline {
             }
         }
 
-        stage('Testing') {
-            steps {
-                sh "docker run ${dockerImage.id} python manage.py test"
-            }
-        }
+        // stage('Testing') {
+        //     steps {
+        //         sh "docker run ${dockerImage.id} python manage.py test"
+        //     }
+        // }
 
         stage('Publish') {
             when {
