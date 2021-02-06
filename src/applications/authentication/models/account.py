@@ -4,6 +4,7 @@
 
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 # Utils Timezone
 from datetime import datetime, timedelta
@@ -19,9 +20,6 @@ from ..base import (
 # Local Manager
 from .manager import AccountManager
 
-# Local Settings
-from core import settings
-
 
 class AbstractAccount(AbstractBaseAccount):
     login = models.CharField(unique=True, max_length=30)
@@ -30,7 +28,6 @@ class AbstractAccount(AbstractBaseAccount):
     email = models.CharField(max_length=64)
     coins = models.IntegerField(default=0)
     create_time = models.DateTimeField(default=timezone.now)
-    availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)
     gold_expire = models.DateTimeField(default=settings.BUFFSTUF)
     silver_expire = models.DateTimeField(default=settings.BUFFSTUF)
     safebox_expire = models.DateTimeField(default=settings.BUFFSTUF)

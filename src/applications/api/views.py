@@ -53,11 +53,37 @@ class BaseInfo(generics.GenericAPIView):
     authentication_classes = ()
     model_class = None
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request, **kwargs):
+        """
+            Handle get
+        """
         try:
             self.model_class.objects.get(login=kwargs.get('username'))
             return Response({'status': True})
-        except self.model_class.DoesNotExist:           
+        except self.model_class.DoesNotExist:
+            return Response({'status': False}, status=status.HTTP_404_NOT_FOUND)
+
+
+class BaseActiveAccount(generics.GenericAPIView):
+    """
+        Base class for activate and account
+    """
+    permission_classes = ()
+    authentication_classes = ()
+    model_class = None
+
+    def get(self, request, **kwargs):
+        """
+            Handle get
+        """
+        try:
+            account = self.model_class.objects.get(address=kwargs.get('token'))
+            if not account.is_active:
+                account.set_active_user()
+                account.set_email_hash()
+                account.save()
+                return Response({'status': True})
+        except self.model_class.DoesNotExist:
             return Response({'status': False}, status=status.HTTP_404_NOT_FOUND)
 
 
@@ -108,6 +134,14 @@ class DownloadApiView(generics.ListAPIView):
 class Info(BaseInfo):
     """
         Verify is user exist in database
+    """
+    permission_classes = (AllowAny,)
+    model_class = Account
+
+
+class ActiveAccount(BaseActiveAccount):
+    """
+        Active Account
     """
     permission_classes = (AllowAny,)
     model_class = Account

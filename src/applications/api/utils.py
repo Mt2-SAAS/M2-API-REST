@@ -35,7 +35,7 @@ def format_lazy(s, *args, **kwargs):
 def get_string_and_html(file, values):
     intermedia_values = {
         'servername': settings.SERVERNAME,
-        'serverUrl': settings.SEVERURL
+        'serverUrl': settings.SERVERURL
     }
     final_values = {**intermedia_values, **values}
     html_content = render_to_string(file, final_values)

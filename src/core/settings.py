@@ -189,8 +189,10 @@ BUFFSTUF = datetime(2030, 8, 13, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 # Final Stuff
 FINALSTUFF = datetime(2030, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
+AVAILDT = datetime(2009, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+
 # Config for storage the correct date of the activation
-if os.environ['MAIL_SEND_ACTIVATION'] == 1:
+if os.environ['MAIL_SEND_ACTIVATION'] == "1":
     ACTIVATE = datetime(2035, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 else:
     ACTIVATE = datetime(2009, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)

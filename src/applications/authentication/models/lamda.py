@@ -3,6 +3,7 @@
 """
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 # Utils Timezone
 from datetime import datetime, timedelta
@@ -17,9 +18,6 @@ from ..base import (
 
 # Local Manager
 from .manager import AccountManager
-
-# Local Settings
-from core import settings
 
 
 class AbstractAccount(AbstractBaseAccount):
@@ -40,7 +38,6 @@ class AbstractAccount(AbstractBaseAccount):
     newsletter = models.IntegerField(blank=True, null=True)
     empire = models.IntegerField(default=0)
     name_checked = models.IntegerField(default=0)
-    availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)
     mileage = models.IntegerField(default=0)
     cash = models.IntegerField(default=0)
     gold_expire = models.DateTimeField(default=settings.BUFFSTUF)
@@ -107,7 +104,7 @@ class AbstractAccount(AbstractBaseAccount):
 
     class Meta:
         abstract = True
-
+    
     def __str__(self):
         return f'{self.login}'
 
