@@ -10,10 +10,11 @@ services:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
     image: mt2web-py-prod
+    env_file: 
+      - ./.environment/production/.django
     environment:
       - DEBUG=0
     volumes:
-      - ./src:/app
       - local_static_data:/home/data/www
 
   nginx:

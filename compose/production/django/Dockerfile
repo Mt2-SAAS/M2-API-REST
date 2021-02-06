@@ -23,6 +23,8 @@ RUN chmod +x /entrypoint
 
 WORKDIR /app/
 
+COPY ./src /app
+
 ENTRYPOINT [ "/entrypoint" ] 
 
 CMD ["/start"]
