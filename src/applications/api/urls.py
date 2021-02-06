@@ -17,5 +17,6 @@ urlpatterns = [
     path('change_pass/', views.ChangePassword.as_view(), name='change_pass'),
     path('info/<str:username>', views.Info.as_view(), name='info'),
     path('server_status/', views.ServerStats.as_view(), name='stats'),
-    path('downloads/', views.DownloadApiView.as_view(), name='downloads')
+    path('downloads/', views.DownloadApiView.as_view(), name='downloads'),
+    path('active/<str:token>/', views.ActiveAccount.as_view(), name='active')
 ]

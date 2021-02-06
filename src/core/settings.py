@@ -29,7 +29,6 @@ DEBUG = int(os.environ['DEBUG'])
 ALLOWED_HOSTS = ['localhost', os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -114,7 +113,7 @@ DATABASES = {
         'HOST': os.environ['DATABASE_HOST'],
         'PORT': os.environ['DATABASE_PORT'],
         'OPTIONS': {
-            'init_command': "CREATE DATABASE IF NOT EXISTS django_metin2;" ,
+            'init_command': "CREATE DATABASE IF NOT EXISTS django_metin2;",
         },
     },
 }
@@ -188,10 +187,12 @@ SERVERURL = os.environ['SERVER_URL']
 BUFFSTUF = datetime(2030, 8, 13, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
 # Final Stuff
-FINALSTUFF = datetime(2020, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+FINALSTUFF = datetime(2030, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
+
+AVAILDT = datetime(2009, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 
 # Config for storage the correct date of the activation
-if os.environ['MAIL_SEND_ACTIVATION'] == 1:
+if os.environ['MAIL_SEND_ACTIVATION'] == "1":
     ACTIVATE = datetime(2035, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
 else:
     ACTIVATE = datetime(2009, 1, 1, 0, 0, 0, 00000, tzinfo=pytz.UTC)
@@ -200,7 +201,6 @@ else:
 CUSTOM_AUTH_USER_MODEL = 'authentication.Account'
 
 CUSTOM_AUTHENTICATION_BACKENDS = ['applications.authentication.backends.ModelBackend']
-
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -212,9 +212,8 @@ REST_FRAMEWORK = {
 BANNED = 'BLOCK'
 ACCEPT = 'OK'
 
-
 # Config of JWT Token
-ALGORITHM = 'HS256' 
+ALGORITHM = 'HS256'
 SIGNING_KEY = SECRET_KEY
 VERIFYING_KEY = None
 AUDIENCE = None

@@ -3,6 +3,7 @@
 """
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 # Utils Timezone
 from datetime import datetime, timedelta
@@ -18,8 +19,6 @@ from ..base import (
 # Local Manager
 from .manager import AccountManager
 
-# Local Settings
-from core import settings
 
 class AbstractAccount(AbstractBaseAccount):
     login = models.CharField(unique=True, max_length=30)
@@ -28,7 +27,6 @@ class AbstractAccount(AbstractBaseAccount):
     email = models.CharField(max_length=64)
     phone1 = models.CharField(max_length=16, blank=True, null=True)
     phone2 = models.CharField(max_length=16, blank=True, null=True)
-    address = models.CharField(max_length=128, blank=True, null=True)
     zipcode = models.CharField(max_length=7, blank=True, null=True)
     create_time = models.DateTimeField(default=timezone.now)
     question1 = models.CharField(max_length=48, blank=True, null=True)
@@ -40,7 +38,6 @@ class AbstractAccount(AbstractBaseAccount):
     newsletter = models.IntegerField(blank=True, null=True)
     empire = models.IntegerField(default=0)
     name_checked = models.IntegerField(default=0)
-    availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)
     mileage = models.IntegerField(default=0)
     cash = models.IntegerField(default=0)
     gold_expire = models.DateTimeField(default=settings.BUFFSTUF)
@@ -107,7 +104,7 @@ class AbstractAccount(AbstractBaseAccount):
 
     class Meta:
         abstract = True
-
+    
     def __str__(self):
         return f'{self.login}'
 
