@@ -10,16 +10,16 @@ from ..base import (
 
 class AccountManager(BaseAccountManager):
 
-    def _create_account(self, login, password, email, real_name, social_id):
+    def _create_account(self, login, password, email, real_name, social_id, answer1):
         if not login:
             raise ValueError('The given login must be set')
 
         email = self.normalize_email(email)
-        user = self.model(login=login, email=email, real_name=real_name, social_id=social_id)
+        user = self.model(login=login, email=email, real_name=real_name, social_id=social_id, answer1=answer1)
         user.set_password(password)
         user.set_email_hash()
         user.save(using=self._db)
         return user
 
-    def create_account(self, login, password=None, email=None, real_name=None, social_id=None):
-        return self._create_account(login, password, email, real_name, social_id)
+    def create_account(self, login, password=None, email=None, real_name=None, social_id=None, answer1=None):
+        return self._create_account(login, password, email, real_name, social_id, answer1)
