@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        ARTIFACT_ID = "luisito666/m2-api-rest:${env.BUILD_NUMBER}"
+        ARTIFACT_ID = "luisito666/m2-api-rest:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
     }
 
     stages {
@@ -28,6 +28,19 @@ pipeline {
         stage('Publish') {
             when {
                 branch 'master'
+            }
+            steps {
+                script {
+                    docker.withRegistry("", "DockerHubCredentials") {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Publish') {
+            when {
+                branch 'develop'
             }
             steps {
                 script {
