@@ -22,3 +22,9 @@ build-prod:
 
 run-prod:
 	export COMPOSE_FILE=docker-compose-prod.yml; docker-compose up
+
+purge-prod:
+	export COMPOSE_FILE=docker-compose-prod.yml; docker-compose down
+
+run-prod-django:
+	export COMPOSE_FILE=docker-compose-prod.yml; docker-compose up -d django

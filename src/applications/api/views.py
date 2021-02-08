@@ -143,6 +143,7 @@ class ActiveAccount(BaseActiveAccount):
     """
         Active Account
     """
+    throttle_scope = 'register'
     permission_classes = (AllowAny,)
     model_class = Account
 
@@ -151,6 +152,7 @@ class RegisterGeneric(generics.CreateAPIView):
     """
         Register Users into database.
     """
+    throttle_scope = 'register'
     queryset = Account.objects.all()
     serializer_class = serializers.RegisterSerializer
     permission_classes = (AllowAny,)
