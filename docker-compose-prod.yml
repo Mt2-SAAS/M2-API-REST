@@ -9,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/django/Dockerfile
-    image: mt2web-py-prod
+    image: luisito666/m2-api-rest:develop-6
     env_file: 
       - ./.environment/production/.django
     environment:
