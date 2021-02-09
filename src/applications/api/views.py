@@ -82,7 +82,8 @@ class BaseActiveAccount(generics.GenericAPIView):
                 account.set_active_user()
                 account.set_email_hash()
                 account.save()
-                return Response({'status': True})
+                user = serializers.CurrentUserSerializer(account)
+                return Response({'status': True, 'user': user.data })
         except self.model_class.DoesNotExist:
             return Response({'status': False}, status=status.HTTP_404_NOT_FOUND)
 
