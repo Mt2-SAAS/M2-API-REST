@@ -99,7 +99,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     def send_activation_email(self, user):
         html_content, string_content = get_string_and_html('email/email_confirmation.html', {'user': user})
         subject = _('Bienvenido a ') + settings.SERVERNAME
-        email = EmailMultiAlternatives(subject, string_content, '', [user.email])
+        email = EmailMultiAlternatives(subject, string_content, settings.EMAIL_HOST_USER, [user.email])
         email.attach_alternative(html_content, "text/html")
         email.send()
 
