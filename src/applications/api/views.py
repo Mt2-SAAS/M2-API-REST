@@ -11,7 +11,7 @@ from .authentication import AUTH_HEADER_TYPES
 from .exceptions import InvalidToken, TokenError
 from .pagination import RankinPageNumber
 from .stats import Stats
-from .models import Download
+from .models import Download, Pages
 
 
 class TokenViewBase(generics.GenericAPIView):
@@ -130,6 +130,13 @@ class DownloadApiView(generics.ListAPIView):
     permission_classes = (AllowAny,)
     queryset = Download.objects.publish()
     serializer_class = serializers.DownloadSerializer
+
+
+class PagesApiView(generics.RetrieveAPIView):
+    permission_classes = (AllowAny,)
+    queryset = Pages.objects.publish()
+    serializer_class = serializers.PagesSerializer
+    lookup_field = 'slug'
 
 
 class Info(BaseInfo):

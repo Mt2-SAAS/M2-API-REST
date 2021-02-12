@@ -12,7 +12,7 @@ from rest_framework import exceptions, serializers
 from .state import User
 from .tokens import AccessToken
 from .utils import get_string_and_html
-
+from .models import Pages
 
 class PasswordField(serializers.CharField):
     def __init__(self, *args, **kwargs):
@@ -151,6 +151,7 @@ class ChangePasswordSerializer(serializers.Serializer):
             raise serializers.ValidationError('password must be equal')
         return data
 
+
 class DownloadSerializer(serializers.Serializer):
     id = serializers.UUIDField(read_only=True)
     provider = serializers.CharField(max_length=30)
@@ -158,3 +159,15 @@ class DownloadSerializer(serializers.Serializer):
     link = serializers.CharField(max_length=100)
     create_at = serializers.DateTimeField()
     modified_at = serializers.DateTimeField()
+
+
+class PagesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Pages
+        fields = ('slug', 'title', 'content',
+        'published', 'create_at', 'modified_at')
+        lookup_field = 'slug'
+        extra_kwargs = {
+            'url': {'lookup_field': 'slug'}
+        }
