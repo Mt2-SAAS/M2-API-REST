@@ -4,11 +4,7 @@
 from datetime import timezone
 from django.db import models
 from core.models import Base
-
-
-class DownloadQuerySet(models.QuerySet):
-    def publish(self):
-        return self.filter(published=True)
+from .queryset import PublishedQuerySet
 
 
 class Download(Base):
@@ -17,7 +13,7 @@ class Download(Base):
     link = models.CharField(max_length=100)
     published = models.BooleanField(default=True)
 
-    objects = DownloadQuerySet.as_manager()
+    objects = PublishedQuerySet.as_manager()
 
     def __str__(self):
         return f'<Download ({self.link})>'
