@@ -10,6 +10,8 @@ SERVER_URL=https://wwww.example.com
 SERVER_DOMAIN=example.com
 SERVER_TIMEZONE=America/Bogota
 SERVER_SECRET=some-secret-please_change
+SERVER_LOCALADDR=
+
 
 PAYMENTWALL_PUBLIC=
 PAYMENTWALL_PRIVATE=

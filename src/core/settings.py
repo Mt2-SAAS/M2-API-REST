@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SERVER_SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ['DEBUG'])
 
-ALLOWED_HOSTS = ['localhost', os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
+ALLOWED_HOSTS = [os.environ['SERVER_LOCALADDR'], os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
 
 # Application definition
 INSTALLED_APPS = [
