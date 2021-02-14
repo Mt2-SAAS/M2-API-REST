@@ -74,7 +74,7 @@ class ShowPaymentWidget(APIView):
 class PaymentwallCallbackView(View):
 
     def __get_request_ip(self):
-        return self.request.META.get('HTTP_X_FORWARDED_FOR')
+        return self.request.META.get('X_FORWARDED_FOR')
 
     def get(self, request, *args, **kwargs):
         pingback = Pingback(request.GET.copy(), self.__get_request_ip())
