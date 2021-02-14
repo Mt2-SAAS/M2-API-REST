@@ -3,6 +3,7 @@
 # Distribuido bajo la licencia MIT Software Licence
 # Mas informacion http://www.opensource.org/licenses/mit-license.php
 
+import logging
 # Importando configuraciones del core
 from core import settings
 
@@ -32,6 +33,7 @@ Paymentwall.set_api_type(Paymentwall.API_VC)
 Paymentwall.set_app_key(settings.PAYMENTWALL_PUBLIC_KEY) # available in your merchant area
 Paymentwall.set_secret_key(settings.PAYMENTWALL_PRIVATE_KEY) # available in your merchant area
 
+logger = logging.getLogger(__name__)
 
 def PayWidget(user, email):
     widget = Widget(
@@ -132,10 +134,10 @@ class PaymentwallCallbackView(View):
                     account.save()
 
             else:
-                print('Paymentwall pingback: Unknown pingback type, Paymentwall sent this data: {}'
+                logger.error('Paymentwall pingback: Unknown pingback type, Paymentwall sent this data: {}'
                       .format(request.GET.copy()))
 
             return HttpResponse('OK', status=200)
         else:
-            print('Paymentwall pingback: Cant validate pingback, error: {} Paymentwall sent this data: {}'
+            logger.error('Paymentwall pingback: Cant validate pingback, error: {} Paymentwall sent this data: {}'
                   .format(pingback.get_error_summary(), request.GET.copy()))
