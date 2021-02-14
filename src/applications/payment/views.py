@@ -139,5 +139,5 @@ class PaymentwallCallbackView(View):
 
             return HttpResponse('OK', status=200)
         else:
-            logger.error('Paymentwall pingback: Cant validate pingback, error: {} Paymentwall sent this data: {}'
-                  .format(pingback.get_error_summary(), request.GET.copy()))
+            logger.error('Paymentwall pingback: Cant validate pingback, error: {} Paymentwall sent this data: {} IP {} '
+                  .format(pingback.get_error_summary(), request.GET.copy(), self.__get_request_ip() ))
