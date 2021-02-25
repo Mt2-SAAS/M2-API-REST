@@ -1,10 +1,12 @@
 # Env File For APP
 
+# Database Config
 DATABASE_USER=root
 DATABASE_PASSWORD=
 DATABASE_HOST=
 DATABASE_PORT=3306
 
+# Server Config
 SERVER_NAME="Metin2 XxX"
 SERVER_URL=https://wwww.example.com
 SERVER_DOMAIN=example.com
@@ -12,12 +14,16 @@ SERVER_TIMEZONE=America/Bogota
 SERVER_SECRET=some-secret-please_change
 SERVER_LOCALADDR=
 
-
+# PaymentWall Config
 PAYMENTWALL_PUBLIC=
 PAYMENTWALL_PRIVATE=
 
+# Email Config
 MAIL_HOST=
 MAIL_PORT=25
 MAIL_PASSWORD=
 MAIL_USER=
 MAIL_SEND_ACTIVATION=0
+
+# Cors Config
+CORS_ORIGIN_ALLOW=

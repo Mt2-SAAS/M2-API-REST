@@ -170,8 +170,7 @@ STATICFILES_DIRS = [
 
 # Django Cors 
 CORS_ORIGIN_WHITELIST = [
-    "https://metin2lamda.com",
-    "https://www.metin2lamda.com"
+    os.environ['CORS_ORIGIN_ALLOW']
 ]
 
 # Mt2Web.py Config

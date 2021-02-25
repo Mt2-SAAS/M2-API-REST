@@ -15,7 +15,7 @@ services:
     environment:
       - DEBUG=0
     volumes:
-      - ../static:/home/data/www
+      - local_static_data:/home/data/www
 
   nginx:
     build:
@@ -23,6 +23,6 @@ services:
       dockerfile: ./compose/production/nginx/Dockerfile
     image: nginx-mt2web-py-prod
     volumes:
-      - ../static:/usr/share/nginx/html/static
+      - local_static_data:/usr/share/nginx/html/static
     ports:
       - 80:80
