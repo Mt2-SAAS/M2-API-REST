@@ -18,5 +18,6 @@ urlpatterns = [
     path('info/<str:username>', views.Info.as_view(), name='info'),
     path('server_status/', views.ServerStats.as_view(), name='stats'),
     path('downloads/', views.DownloadApiView.as_view(), name='downloads'),
+    path('pages/<str:slug>', views.PagesApiView.as_view(), name='pages'),
     path('active/<str:token>/', views.ActiveAccount.as_view(), name='active')
 ]

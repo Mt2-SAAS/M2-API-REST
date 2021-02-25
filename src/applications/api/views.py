@@ -11,7 +11,7 @@ from .authentication import AUTH_HEADER_TYPES
 from .exceptions import InvalidToken, TokenError
 from .pagination import RankinPageNumber
 from .stats import Stats
-from .models import Download
+from .models import Download, Pages
 
 
 class TokenViewBase(generics.GenericAPIView):
@@ -82,7 +82,8 @@ class BaseActiveAccount(generics.GenericAPIView):
                 account.set_active_user()
                 account.set_email_hash()
                 account.save()
-                return Response({'status': True})
+                user = serializers.CurrentUserSerializer(account)
+                return Response({'status': True, 'user': user.data })
         except self.model_class.DoesNotExist:
             return Response({'status': False}, status=status.HTTP_404_NOT_FOUND)
 
@@ -131,6 +132,13 @@ class DownloadApiView(generics.ListAPIView):
     serializer_class = serializers.DownloadSerializer
 
 
+class PagesApiView(generics.RetrieveAPIView):
+    permission_classes = (AllowAny,)
+    queryset = Pages.objects.publish()
+    serializer_class = serializers.PagesSerializer
+    lookup_field = 'slug'
+
+
 class Info(BaseInfo):
     """
         Verify is user exist in database
@@ -143,6 +151,7 @@ class ActiveAccount(BaseActiveAccount):
     """
         Active Account
     """
+    throttle_scope = 'register'
     permission_classes = (AllowAny,)
     model_class = Account
 
@@ -151,6 +160,7 @@ class RegisterGeneric(generics.CreateAPIView):
     """
         Register Users into database.
     """
+    throttle_scope = 'register'
     queryset = Account.objects.all()
     serializer_class = serializers.RegisterSerializer
     permission_classes = (AllowAny,)

@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SERVER_SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ['DEBUG'])
 
-ALLOWED_HOSTS = ['localhost', os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
+ALLOWED_HOSTS = [os.environ['SERVER_LOCALADDR'], os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
 
 # Application definition
 INSTALLED_APPS = [
@@ -170,8 +170,7 @@ STATICFILES_DIRS = [
 
 # Django Cors 
 CORS_ORIGIN_WHITELIST = [
-    "http://localhost:4200",
-    "http://127.0.0.1:9000"
+    os.environ['CORS_ORIGIN_ALLOW']
 ]
 
 # Mt2Web.py Config
@@ -205,7 +204,13 @@ CUSTOM_AUTHENTICATION_BACKENDS = ['applications.authentication.backends.ModelBac
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'applications.api.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.ScopedRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'register': '10/day'
+    }
 }
 
 ## Banned a available account
