@@ -101,7 +101,7 @@ class PaymentwallCallbackView(View):
                     Verify if account exist and reference is valid
                 """
                 try:
-                    account = Account.objects.get(login=pingback.get_user_id())
+                    account = Account.objects.get(pk=pingback.get_user_id())
                     paylogs = PaymentLogs.objects.get(reference_id=pingback.get_reference_id())
 
                     if paylogs:
@@ -115,7 +115,7 @@ class PaymentwallCallbackView(View):
                     """
                         If not exist PaymentLog deliver the coins
                     """
-                    account = Account.objects.get(login=pingback.get_user_id())
+                    account = Account.objects.get(pk=pingback.get_user_id())
                     account.coins = int(account.coins) + int(virtual_currency)
                     paylogs = PaymentLogs(
                         reference_id=pingback.get_reference_id(),
