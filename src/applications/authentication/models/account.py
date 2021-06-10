@@ -27,6 +27,7 @@ class AbstractAccount(AbstractBaseAccount):
     social_id = models.CharField(max_length=13)
     email = models.CharField(max_length=64)
     coins = models.IntegerField(default=0)
+    address = models.CharField(max_length=128, blank=True, null=True)
     create_time = models.DateTimeField(default=timezone.now)
     gold_expire = models.DateTimeField(default=settings.BUFFSTUF)
     silver_expire = models.DateTimeField(default=settings.BUFFSTUF)

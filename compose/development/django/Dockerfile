@@ -10,7 +10,7 @@ COPY ./src/requirements.txt /app
 
 RUN set -ex \
     && apk add zlib-dev jpeg-dev mariadb-dev \
-    && apk add --no-cache --virtual .build-deps build-base \
+    && apk add --no-cache --virtual .build-deps build-base git \
     && pip install -r /app/requirements.txt \
     && apk del .build-deps
 

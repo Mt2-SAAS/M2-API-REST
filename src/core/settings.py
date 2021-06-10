@@ -170,6 +170,8 @@ STATICFILES_DIRS = [
 
 # Django Cors 
 CORS_ORIGIN_WHITELIST = [
+    f'https://{ os.environ["SERVER_DOMAIN"] }',
+    f'https://www.{ os.environ["SERVER_DOMAIN"] }',
     os.environ['CORS_ORIGIN_ALLOW']
 ]
 
@@ -212,6 +214,10 @@ REST_FRAMEWORK = {
         'register': '10/day'
     }
 }
+
+# Tokens Names
+TOKEN_ACTIVATION = 'activation'
+TOKEN_RESET_PASSWORD = 'reset_password'
 
 ## Banned a available account
 BANNED = 'BLOCK'

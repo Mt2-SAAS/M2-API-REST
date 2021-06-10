@@ -1,7 +1,7 @@
 from uuid import uuid4
 from django.utils.translation import ugettext_lazy as _
 from .exceptions import TokenError, InvalidToken
-from core import settings
+from django.conf import settings
 from .utils import (
     aware_utcnow, datetime_from_epoch, datetime_to_epoch, format_lazy
 )

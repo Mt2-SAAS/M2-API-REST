@@ -17,7 +17,6 @@ class AccountManager(BaseAccountManager):
         email = self.normalize_email(email)
         user = self.model(login=login, email=email, real_name=real_name, social_id=social_id)
         user.set_password(password)
-        user.set_email_hash()
         user.save(using=self._db)
         return user
 

@@ -1,6 +1,6 @@
 # Basic commands
 build:
-	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose build
+	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose build --no-cache
 
 run:
 	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose up
@@ -10,10 +10,10 @@ purge:
 
 # Dev commands
 shell:
-	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose run --rm default python manage.py shell
+	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose run --rm backend python manage.py shell
 
 enter:
-	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose run --rm --service-ports default sh
+	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose run --rm --service-ports backend sh
 
 # Production commands
 

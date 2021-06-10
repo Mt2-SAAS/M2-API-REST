@@ -4,11 +4,11 @@
 
 # Mt2Web.py-V2
 
-Backend para el proyecto [M2Frontend](https://github.com/luisito666/M2Frontend)
+WebServices (Backend) Para exponer REST APIs de Juegos Online.
 
 ## Motivación.
 
-El objetivo principal de este proyecto es proporcionar una forma rápida de implementar servicios para Servidores Privados de Metin2.
+El objetivo principal de este proyecto es proporcionar una API para la creacion de paginas web para PServers
 
 ## Ventajas.
 
@@ -36,35 +36,43 @@ make build
 
 ## ¿Como Iniciar?
 
-Antes de iniciar el proyecto es necesario editar el archivo config.yml y agregar los parametros necesarios para el funcionamiento.
+Antes de iniciar el proyecto es necesario editar el archivo de configuracion y agregar los parametros necesarios para el funcionamiento.
+el archivo se encuentra en la siguiente ruta.
 
-el archivo se encuentra en la siguiente ruta 'src/config.yml'
+Hay dos archivos, uno para produccion y otro para desarrollo.
+
+Dev '.environment/development/.django'
+Prod '.environment/production/.django'
 
 ```
-database:
-  user: root
-  password: 'tu_pasword'
-  host: 0.0.0.0
-  port: 3306
-server:
-  name: 'Metin2 XxX'
-  url: 'https://www.example.com'
-  domain: 'example.com'
-  timezone: 'America/Bogota'
-paymentwall:
-  public_key: ''
-  private_key: ''
-captcha:
-  enable: False
-  public_key: ''
-  private_key: ''
-mail:
-  host: 0.0.0.0
-  port: 25
-  password: 'tu_pasword'
-  user: 'tu_usuario@example.com'
-register:
-  mail_activate_account: False
+# Env File For APP
+# Database Config
+DATABASE_USER=root
+DATABASE_PASSWORD=
+DATABASE_HOST=
+DATABASE_PORT=3306
+
+# Server Config
+SERVER_NAME="Metin2 XxX"
+SERVER_URL=https://wwww.example.com
+SERVER_DOMAIN=example.com
+SERVER_TIMEZONE=America/Bogota
+SERVER_SECRET=some-secret-please_change
+SERVER_LOCALADDR=
+
+# PaymentWall Config
+PAYMENTWALL_PUBLIC=
+PAYMENTWALL_PRIVATE=
+
+# Email Config
+MAIL_HOST=
+MAIL_PORT=25
+MAIL_PASSWORD=
+MAIL_USER=
+MAIL_SEND_ACTIVATION=0
+
+# Cors Config
+CORS_ORIGIN_ALLOW=
 ```
 
 Despues de lo anterior se ejecuta este comando para iniciar el proyecto.
