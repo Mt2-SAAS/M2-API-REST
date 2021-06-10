@@ -9,7 +9,7 @@ RUN apk update \
 COPY ./src/requirements.txt /app
 
 RUN set -ex \
-    && apk add zlib-dev jpeg-dev mariadb-dev \
+    && apk add zlib-dev jpeg-dev mariadb-dev git \
     && apk add --no-cache --virtual .build-deps build-base \
     && pip install -r /app/requirements.txt \
     && pip install gunicorn \
