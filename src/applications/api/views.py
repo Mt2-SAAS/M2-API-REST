@@ -1,5 +1,7 @@
+"""
+    API Views
+"""
 from django.db.models import Q
-from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,85 +9,16 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from applications.player.models import Player, Guild
 from applications.authentication.models import Account
 from . import serializers
-from .authentication import AUTH_HEADER_TYPES
-from .exceptions import InvalidToken, TokenError
+from .base import (
+    TokenViewBase,
+    BaseInfo,
+    BaseActiveAccount,
+    BaseResetPassword,
+    BaseGetTokenResetPassword
+)
 from .pagination import RankinPageNumber
 from .stats import Stats
-from .models import Download, Pages
-
-
-class TokenViewBase(generics.GenericAPIView):
-    """
-        Base class for generate Token for Auth
-    """
-    permission_classes = ()
-    authentication_classes = ()
-
-    serializer_class = None
-
-    www_authenticate_realm = 'api'
-
-    def get_authenticate_header(self, request):
-        return '{0} realm="{1}"'.format(
-            AUTH_HEADER_TYPES[0],
-            self.www_authenticate_realm,
-        )
-
-    def post(self, request):
-        """
-            Handler for method post
-        """
-        serializer = self.get_serializer(data=request.data)
-
-        try:
-            serializer.is_valid(raise_exception=True)
-        except TokenError as token_error:
-            raise InvalidToken(token_error.args[0])
-
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
-
-
-class BaseInfo(generics.GenericAPIView):
-    """
-        Class for validate if user exist in database.
-    """
-    permission_classes = ()
-    authentication_classes = ()
-    model_class = None
-
-    def get(self, request, **kwargs):
-        """
-            Handle get
-        """
-        try:
-            self.model_class.objects.get(login=kwargs.get('username'))
-            return Response({'status': True})
-        except self.model_class.DoesNotExist:
-            return Response({'status': False}, status=status.HTTP_404_NOT_FOUND)
-
-
-class BaseActiveAccount(generics.GenericAPIView):
-    """
-        Base class for activate and account
-    """
-    permission_classes = ()
-    authentication_classes = ()
-    model_class = None
-
-    def get(self, request, **kwargs):
-        """
-            Handle get
-        """
-        try:
-            account = self.model_class.objects.get(address=kwargs.get('token'))
-            if not account.is_active:
-                account.set_active_user()
-                account.set_email_hash()
-                account.save()
-                user = serializers.CurrentUserSerializer(account)
-                return Response({'status': True, 'user': user.data })
-        except self.model_class.DoesNotExist:
-            return Response({'status': False}, status=status.HTTP_404_NOT_FOUND)
+from .models import Download, Pages, Token
 
 
 class TokenObtainView(TokenViewBase):
@@ -94,18 +27,6 @@ class TokenObtainView(TokenViewBase):
     token pair to prove the authentication of those credentials.
     """
     serializer_class = serializers.TokenObtainPairSerializer
-
-
-class TestPermision(APIView):
-    """
-        Permission test class
-    """
-
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        user = request.user
-        return Response({'username': user.login})
 
 
 class RankingGuilds(generics.ListAPIView):
@@ -127,12 +48,18 @@ class RankingPlayers(generics.ListAPIView):
 
 
 class DownloadApiView(generics.ListAPIView):
+    """
+        Downloads Links
+    """
     permission_classes = (AllowAny,)
     queryset = Download.objects.publish()
     serializer_class = serializers.DownloadSerializer
 
 
 class PagesApiView(generics.RetrieveAPIView):
+    """
+        Custom Pages
+    """
     permission_classes = (AllowAny,)
     queryset = Pages.objects.publish()
     serializer_class = serializers.PagesSerializer
@@ -154,6 +81,28 @@ class ActiveAccount(BaseActiveAccount):
     throttle_scope = 'register'
     permission_classes = (AllowAny,)
     model_class = Account
+    token_class = Token
+
+
+class ResetPassword(BaseResetPassword):
+    """
+        Active Account
+    """
+    throttle_scope = 'register'
+    permission_classes = (AllowAny,)
+    serializer_class = serializers.ResetPasswordSerializer
+    model_class = Account
+    token_class = Token
+
+
+class GetTokenResetPassword(BaseGetTokenResetPassword):
+    """
+        Active Account
+    """
+    permission_classes = (AllowAny,)
+    serializer_class = serializers.RequestPasswordSerializer
+    model_class = Account
+    token_class = Token
 
 
 class RegisterGeneric(generics.CreateAPIView):

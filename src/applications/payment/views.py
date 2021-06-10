@@ -1,11 +1,11 @@
 
-# Copyright (c) 2017-2018 luispenagos91@gmail.com
+# Copyright (c) 2017-2021 luispenagos91@gmail.com
 # Distribuido bajo la licencia MIT Software Licence
 # Mas informacion http://www.opensource.org/licenses/mit-license.php
 
 import logging
 # Importando configuraciones del core
-from core import settings
+from django.conf import settings
 
 # Importando las bases del api de paymentwall
 from paymentwall.base import Paymentwall
@@ -84,6 +84,8 @@ class PaymentwallCallbackView(View):
         return ip
 
     def get(self, request, *args, **kwargs):
+        # TODO
+        # Send Email with link for get a ramdon goods
         pingback = Pingback(request.GET.copy(), self.__get_request_ip())
 
         if pingback.validate():

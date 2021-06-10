@@ -8,7 +8,7 @@
 <p>URL del Sitio: {{ serverUrl }}  <p>
 
 ----------------------------
-<p>Usa el siguiente link para activar tu cuenta: <a href="{{ serverUrl }}/#/auth/active/{{ user.email_hash }}">{{ serverUrl }}/#/auth/active/{{ user.email_hash }}</a> </p>
+<p>Usa el siguiente link para activar tu cuenta: <a href="{{ serverUrl }}/auth/active/{{ token.id }}">{{ serverUrl }}/#/auth/active/{{ token.id }}</a> </p>
 ----------------------------
 
 <p>Tu clave ha sido encriptada en nuestra base de datos. Si la olvidaste

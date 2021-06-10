@@ -14,4 +14,5 @@ PyMySQL==0.10.1
 PyJWT==2.0.0
 
 # PaymentWall
-paymentwall-python==1.0.8
+# paymentwall-python==1.0.8
+git+https://github.com/luisito666/paymentwall-python.git@chore/Add-CIDR-Validation

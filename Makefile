@@ -1,6 +1,6 @@
 # Basic commands
 build:
-	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose build
+	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose build --no-cache
 
 run:
 	export COMPOSE_FILE=docker-compose-dev.yml; docker-compose up

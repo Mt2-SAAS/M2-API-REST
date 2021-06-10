@@ -29,7 +29,6 @@ class AbstractBaseAccount(models.Model):
     )
     password = models.CharField(_('password'), max_length=45)
     status = models.CharField(max_length=8, default="OK", choices=STATUS_ACCOUNT)
-    address = models.CharField(max_length=128, blank=True, null=True)
     availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)
 
     class Meta:
@@ -51,13 +50,6 @@ class AbstractBaseAccount(models.Model):
         return self.status == BANNED
 
     @property
-    def email_hash(self):
-        """
-            Return Email Hash
-        """
-        return self.address
-
-    @property
     def is_active(self):
         """
             Verify if user is active
@@ -70,9 +62,6 @@ class AbstractBaseAccount(models.Model):
         """
         if not self.is_active:
             self.availdt = settings.AVAILDT
-
-    def set_email_hash(self):
-        self.address = get_random_string(48)
 
     def set_password(self, raw_password):
         self.password = make_password(raw_password)

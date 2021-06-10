@@ -19,5 +19,7 @@ urlpatterns = [
     path('server_status/', views.ServerStats.as_view(), name='stats'),
     path('downloads/', views.DownloadApiView.as_view(), name='downloads'),
     path('pages/<str:slug>', views.PagesApiView.as_view(), name='pages'),
-    path('active/<str:token>/', views.ActiveAccount.as_view(), name='active')
+    path('active/<str:token>/', views.ActiveAccount.as_view(), name='active'),
+    path('reset/<str:token>/', views.ResetPassword.as_view(), name='reset'),
+    path('token_reset/', views.GetTokenResetPassword.as_view(), name='reset')
 ]

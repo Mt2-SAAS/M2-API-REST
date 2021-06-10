@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SERVER_SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ['DEBUG'])
 
-ALLOWED_HOSTS = [os.environ['SERVER_LOCALADDR'], os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
+ALLOWED_HOSTS = [os.environ['SERVER_LOCALADDR'], os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN'], "192.168.0.13"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -171,7 +171,11 @@ STATICFILES_DIRS = [
 # Django Cors 
 CORS_ORIGIN_WHITELIST = [
     "https://metin2lamda.com",
-    "https://www.metin2lamda.com"
+    "https://www.metin2lamda.com",
+    "http://192.168.0.13:8000",
+    "http://localhost:8001",
+    "http://backend:8000",
+    "http://localhost:4200"
 ]
 
 # Mt2Web.py Config
@@ -213,6 +217,10 @@ REST_FRAMEWORK = {
         'register': '10/day'
     }
 }
+
+# Tokens Names
+TOKEN_ACTIVATION = 'activation'
+TOKEN_RESET_PASSWORD = 'reset_password'
 
 ## Banned a available account
 BANNED = 'BLOCK'

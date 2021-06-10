@@ -3,7 +3,7 @@ from rest_framework import HTTP_HEADER_ENCODING, authentication
 
 from .exceptions import AuthenticationFailed, InvalidToken, TokenError
 
-from core import settings
+from django.conf import settings
 from .state import User
 
 AUTH_HEADER_TYPES = settings.AUTH_HEADER_TYPES

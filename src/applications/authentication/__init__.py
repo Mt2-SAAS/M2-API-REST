@@ -8,7 +8,7 @@ from django.utils.crypto import constant_time_compare
 from django.middleware.csrf import rotate_token
 from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.utils.module_loading import import_string
-from core import settings
+from django.conf import settings
 
 SESSION_KEY = '_auth_user_id'
 BACKEND_SESSION_KEY = '_auth_user_backend'

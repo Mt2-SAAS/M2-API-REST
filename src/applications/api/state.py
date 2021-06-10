@@ -2,7 +2,7 @@
     Py
 """
 from applications.authentication import get_user_model
-from core import settings
+from django.conf import settings
 
 from .backends import TokenBackend
 
