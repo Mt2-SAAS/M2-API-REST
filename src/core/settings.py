@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SERVER_SECRET']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ['DEBUG'])
 
-ALLOWED_HOSTS = [os.environ['SERVER_LOCALADDR'], os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN'], "192.168.0.13"]
+ALLOWED_HOSTS = [os.environ['SERVER_LOCALADDR'], os.environ['SERVER_DOMAIN'], 'www.' + os.environ['SERVER_DOMAIN']]
 
 # Application definition
 INSTALLED_APPS = [
@@ -170,12 +170,9 @@ STATICFILES_DIRS = [
 
 # Django Cors 
 CORS_ORIGIN_WHITELIST = [
-    "https://metin2lamda.com",
-    "https://www.metin2lamda.com",
-    "http://192.168.0.13:8000",
-    "http://localhost:8001",
-    "http://backend:8000",
-    "http://localhost:4200"
+    f'https://{ os.environ["SERVER_DOMAIN"] }',
+    f'https://www.{ os.environ["SERVER_DOMAIN"] }',
+    os.environ['CORS_ORIGIN_ALLOW']
 ]
 
 # Mt2Web.py Config
