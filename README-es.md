@@ -41,11 +41,13 @@ el archivo se encuentra en la siguiente ruta.
 
 Hay dos archivos, uno para produccion y otro para desarrollo.
 
-Dev '.environment/development/.django'
-Prod '.environment/production/.django'
+Desarrollo '.environment/development/.django'
+
+Produccion '.environment/production/.django'
 
 ```
 # Env File For APP
+
 # Database Config
 DATABASE_USER=root
 DATABASE_PASSWORD=
