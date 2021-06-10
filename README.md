@@ -37,35 +37,45 @@ make build
 
 ## ¿How to Start?
 
-Before of start this projects is recomended edit the config.yml file and add the correct parameters.
+Before starting the project, it is necessary to edit the configuration file and add the necessary parameters for operation.
+the file is in the following path.
 
-the file is locate in the next path 'src/config.yml'
+There are two files, one for production and one for development.
+
+Development '.environment/development/.django'
+
+Production '.environment/production/.django'
 
 ```
-database:
-  user: root
-  password: 'your_db_pasword'
-  host: 0.0.0.0
-  port: 3306
-server:
-  name: 'Metin2 XxX'
-  url: 'https://www.example.com'
-  domain: 'example.com'
-  timezone: 'America/Bogota'
-paymentwall:
-  public_key: ''
-  private_key: ''
-captcha:
-  enable: False
-  public_key: ''
-  private_key: ''
-mail:
-  host: 0.0.0.0
-  port: 25
-  password: 'tu_pasword'
-  user: 'tu_usuario@example.com'
-register:
-  mail_activate_account: False
+# Env File For APP
+
+# Database Config
+DATABASE_USER=root
+DATABASE_PASSWORD=
+DATABASE_HOST=
+DATABASE_PORT=3306
+
+# Server Config
+SERVER_NAME="Metin2 XxX"
+SERVER_URL=https://wwww.example.com
+SERVER_DOMAIN=example.com
+SERVER_TIMEZONE=America/Bogota
+SERVER_SECRET=some-secret-please_change
+SERVER_LOCALADDR=
+
+# PaymentWall Config
+PAYMENTWALL_PUBLIC=
+PAYMENTWALL_PRIVATE=
+
+# Email Config
+MAIL_HOST=
+MAIL_PORT=25
+MAIL_PASSWORD=
+MAIL_USER=
+MAIL_SEND_ACTIVATION=0
+
+# Cors Config
+CORS_ORIGIN_ALLOW=
 ```
 
 After to this run the startup command.
