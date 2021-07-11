@@ -12,7 +12,7 @@ from rest_framework import exceptions, serializers
 from .state import User
 from .tokens import AccessToken
 from .utils import get_string_and_html
-from .models import Pages, Token
+from .models import Pages, Token, Site, Image
 
 class PasswordField(serializers.CharField):
     def __init__(self, *args, **kwargs):
@@ -203,3 +203,27 @@ class RequestPasswordSerializer(serializers.Serializer):
         email = EmailMultiAlternatives(subject, string_content, settings.EMAIL_HOST_USER, [user.email])
         email.attach_alternative(html_content, "text/html")
         email.send()
+
+
+class ImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Image
+        fields = ('name', 'image', 'types')
+
+
+class SiteSerializer(serializers.ModelSerializer):
+
+    images = ImageSerializer(many=True)
+    footer_menu = PagesSerializer(many=True)
+
+    class Meta:
+        model = Site
+        fields = ('name', 'slug', 'images', 'initial_level',
+        'max_level', 'rates', 'facebook_url', 'facebook_enable',
+        'footer_menu', 'footer_info', 'footer_menu_enable', 'footer_info_enable', 
+        'forum_url', 'last_online')
+        lookup_field = 'slug'
+        extra_kwargs = {
+            'url': {'lookup_field': 'slug'}
+        }
