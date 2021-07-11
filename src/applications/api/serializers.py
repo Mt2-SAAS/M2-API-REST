@@ -207,9 +207,15 @@ class RequestPasswordSerializer(serializers.Serializer):
 
 class ImageSerializer(serializers.ModelSerializer):
 
+    image_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Image
-        fields = ('name', 'image', 'types')
+        fields = ('name', 'types', 'image_url')
+    
+    def get_image_url(self, image):
+        photo_url = image.image.url
+        return photo_url
 
 
 class SiteSerializer(serializers.ModelSerializer):
