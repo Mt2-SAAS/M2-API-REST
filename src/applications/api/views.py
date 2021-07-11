@@ -18,7 +18,7 @@ from .base import (
 )
 from .pagination import RankinPageNumber
 from .stats import Stats
-from .models import Download, Pages, Token
+from .models import Download, Pages, Token, Site
 
 
 class TokenObtainView(TokenViewBase):
@@ -63,6 +63,16 @@ class PagesApiView(generics.RetrieveAPIView):
     permission_classes = (AllowAny,)
     queryset = Pages.objects.publish()
     serializer_class = serializers.PagesSerializer
+    lookup_field = 'slug'
+
+
+class SiteApiView(generics.RetrieveAPIView):
+    """
+        Custom Pages
+    """
+    permission_classes = (AllowAny,)
+    queryset = Site.objects.all()
+    serializer_class = serializers.SiteSerializer
     lookup_field = 'slug'
 
 
