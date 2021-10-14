@@ -175,6 +175,9 @@ CORS_ORIGIN_WHITELIST = [
     os.environ['CORS_ORIGIN_ALLOW']
 ]
 
+if DEBUG:
+    CORS_ORIGIN_WHITELIST.append('http://localhost:4200')
+
 # Mt2Web.py Config
 
 # Configurations ingame
