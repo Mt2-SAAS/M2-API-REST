@@ -8,15 +8,22 @@ from .models import PaymentLogs, PaymentCode
 
 
 class PaymentLogsDisplay(admin.ModelAdmin):
-    list_display = ('reference_id', 'account_id', 'username', 'coins', 'status', 'create_at')
-    readonly_fields = ('status',)
-    search_fields = ['username']
+    list_display = (
+        "reference_id",
+        "account_id",
+        "username",
+        "coins",
+        "status",
+        "create_at",
+    )
+    readonly_fields = ("status",)
+    search_fields = ["username"]
 
 
 class PaymentCodeDisplay(admin.ModelAdmin):
-    list_display = ('id', 'status', 'coins', 'user_claim', 'account_id')
-    readonly_fields = ('status',)
-    search_fields = ['user_claim']
+    list_display = ("id", "status", "coins", "user_claim", "account_id")
+    readonly_fields = ("status",)
+    search_fields = ["user_claim"]
 
 
 admin.site.register(PaymentLogs, PaymentLogsDisplay)

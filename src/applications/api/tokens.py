@@ -2,22 +2,19 @@ from uuid import uuid4
 from django.utils.translation import ugettext_lazy as _
 from .exceptions import TokenError, InvalidToken
 from django.conf import settings
-from .utils import (
-    aware_utcnow, datetime_from_epoch, datetime_to_epoch, format_lazy
-)
+from .utils import aware_utcnow, datetime_from_epoch, datetime_to_epoch, format_lazy
 
 
 class Token(object):
-    """
-    """
+    """ """
+
     token_type = None
     lifetime = None
 
     def __init__(self, token=None, verify=True):
-        """
-        """
+        """ """
         if self.token_type is None or self.lifetime is None:
-            raise TokenError(_('Cannot create token with no type or lifetime'))
+            raise TokenError(_("Cannot create token with no type or lifetime"))
 
         self.token = token
         self.current_time = aware_utcnow()
@@ -31,7 +28,7 @@ class Token(object):
             try:
                 self.payload = token_backend.decode(token, verify=verify)
             except InvalidToken:
-                raise InvalidToken(_('Token is invalid or expired'))
+                raise InvalidToken(_("Token is invalid or expired"))
 
             if verify:
                 self.verify()
@@ -75,8 +72,8 @@ class Token(object):
         self.check_exp()
 
         # Ensure token id is present
-        if 'jti' not in self.payload:
-            raise TokenError(_('Token has no id'))
+        if "jti" not in self.payload:
+            raise TokenError(_("Token has no id"))
 
         self.verify_token_type()
 
@@ -87,10 +84,10 @@ class Token(object):
         try:
             token_type = self.payload[settings.TOKEN_TYPE_CLAIM]
         except KeyError:
-            raise TokenError(_('Token has no type'))
+            raise TokenError(_("Token has no type"))
 
         if self.token_type != token_type:
-            raise TokenError(_('Token has wrong type'))
+            raise TokenError(_("Token has wrong type"))
 
     def set_jti(self):
         """
@@ -100,9 +97,9 @@ class Token(object):
         See here:
         https://tools.ietf.org/html/rfc7519#section-4.1.7
         """
-        self.payload['jti'] = uuid4().hex
+        self.payload["jti"] = uuid4().hex
 
-    def set_exp(self, claim='exp', from_time=None, lifetime=None):
+    def set_exp(self, claim="exp", from_time=None, lifetime=None):
         """
         Updates the expiration time of a token.
         """
@@ -114,7 +111,7 @@ class Token(object):
 
         self.payload[claim] = datetime_to_epoch(from_time + lifetime)
 
-    def check_exp(self, claim='exp', current_time=None):
+    def check_exp(self, claim="exp", current_time=None):
         """
         Checks whether a timestamp value in the given claim has passed (since
         the given datetime value in `current_time`).  Raises a TokenError with
@@ -149,5 +146,5 @@ class Token(object):
 
 
 class AccessToken(Token):
-    token_type = 'access'
+    token_type = "access"
     lifetime = settings.ACCESS_TOKEN_LIFETIME

@@ -7,24 +7,28 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Download',
+            name="Download",
             fields=[
-                ('id', models.UUIDField(default=None, editable=False, primary_key=True, serialize=False)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('provider', models.CharField(max_length=30)),
-                ('weight', models.DecimalField(decimal_places=3, max_digits=5)),
-                ('link', models.CharField(max_length=100)),
-                ('published', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=None, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
+                ("create_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                ("provider", models.CharField(max_length=30)),
+                ("weight", models.DecimalField(decimal_places=3, max_digits=5)),
+                ("link", models.CharField(max_length=100)),
+                ("published", models.BooleanField(default=True)),
             ],
             options={
-                'verbose_name': 'Download',
-                'verbose_name_plural': 'Downloads',
+                "verbose_name": "Download",
+                "verbose_name_plural": "Downloads",
             },
         ),
     ]

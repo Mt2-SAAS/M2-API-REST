@@ -14,12 +14,13 @@ from .tokens import AccessToken
 from .utils import get_string_and_html
 from .models import Pages, Token, Site, Image
 
+
 class PasswordField(serializers.CharField):
     def __init__(self, *args, **kwargs):
-        kwargs.setdefault('style', {})
+        kwargs.setdefault("style", {})
 
-        kwargs['style']['input_type'] = 'password'
-        kwargs['write_only'] = True
+        kwargs["style"]["input_type"] = "password"
+        kwargs["write_only"] = True
 
         super().__init__(*args, **kwargs)
 
@@ -28,22 +29,22 @@ class TokenObtainSerializer(serializers.Serializer):
     username_field = User.USERNAME_FIELD
 
     default_error_messages = {
-        'no_active_account': _('No active account found with the given credentials')
+        "no_active_account": _("No active account found with the given credentials")
     }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         self.fields[self.username_field] = serializers.CharField()
-        self.fields['password'] = PasswordField()
+        self.fields["password"] = PasswordField()
 
     def validate(self, attrs):
         authenticate_kwargs = {
             self.username_field: attrs[self.username_field],
-            'password': attrs['password'],
+            "password": attrs["password"],
         }
         try:
-            authenticate_kwargs['request'] = self.context['request']
+            authenticate_kwargs["request"] = self.context["request"]
         except KeyError:
             pass
 
@@ -58,20 +59,22 @@ class TokenObtainSerializer(serializers.Serializer):
         # sensible backwards compatibility with older Django versions.
         if self.user is None:
             raise exceptions.AuthenticationFailed(
-                self.error_messages['no_active_account'],
-                'no_active_account',
+                self.error_messages["no_active_account"],
+                "no_active_account",
             )
 
         return {}
 
     @classmethod
     def get_token(cls, user):
-        raise NotImplementedError('Must implement `get_token` method for `TokenObtainSerializer` subclasses')
+        raise NotImplementedError(
+            "Must implement `get_token` method for `TokenObtainSerializer` subclasses"
+        )
 
 
 class TokenObtainPairSerializer(TokenObtainSerializer):
     """
-        Helper class for create token
+    Helper class for create token
     """
 
     @classmethod
@@ -83,13 +86,12 @@ class TokenObtainPairSerializer(TokenObtainSerializer):
 
         refresh = self.get_token(self.user)
 
-        data['refresh'] = str(refresh)
+        data["refresh"] = str(refresh)
 
         return data
 
 
 class RegisterSerializer(serializers.ModelSerializer):
-
     def create(self, validated_data):
         user = User.objects.create_account(**validated_data)
         user.save()
@@ -98,42 +100,48 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
     def send_activation_email(self, user, token):
-        html_content, string_content = get_string_and_html('email/email_confirmation.html', {'user': user, 'token': token})
-        subject = _('Bienvenido a ') + settings.SERVERNAME
-        email = EmailMultiAlternatives(subject, string_content, settings.EMAIL_HOST_USER, [user.email])
+        html_content, string_content = get_string_and_html(
+            "email/email_confirmation.html", {"user": user, "token": token}
+        )
+        subject = _("Bienvenido a ") + settings.SERVERNAME
+        email = EmailMultiAlternatives(
+            subject, string_content, settings.EMAIL_HOST_USER, [user.email]
+        )
         email.attach_alternative(html_content, "text/html")
         email.send()
 
     class Meta:
         model = User
-        fields = ('login', 'password', 'email', 'real_name', 'social_id')
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ("login", "password", "email", "real_name", "social_id")
+        extra_kwargs = {"password": {"write_only": True}}
 
 
 class CurrentUserSerializer(serializers.ModelSerializer):
     """
-        Current user serializer
+    Current user serializer
     """
+
     class Meta:
         model = User
-        fields = ('login', 'status', 'real_name',
-        'email', 'coins', 'create_time')
+        fields = ("login", "status", "real_name", "email", "coins", "create_time")
 
 
 class RankingPlayerSerializer(serializers.Serializer):
     """
-        Serializer For Players
+    Serializer For Players
     """
+
     account_id = serializers.IntegerField()
-    name = serializers.CharField()	
+    name = serializers.CharField()
     level = serializers.IntegerField()
-    exp = serializers.IntegerField()	
+    exp = serializers.IntegerField()
 
 
 class RankingGuildSerializer(serializers.Serializer):
     """
-        Serializer for Guilds
+    Serializer for Guilds
     """
+
     name = serializers.CharField()
     level = serializers.IntegerField()
     exp = serializers.IntegerField()
@@ -141,27 +149,27 @@ class RankingGuildSerializer(serializers.Serializer):
 
 
 class ChangePasswordSerializer(serializers.Serializer):
-    """
-    """
+    """ """
+
     current_password = PasswordField()
     new_password = PasswordField()
     new_password_again = PasswordField()
 
     def validate(self, data):
-        if data['new_password'] != data['new_password_again']:
-            raise serializers.ValidationError('password must be equal')
+        if data["new_password"] != data["new_password_again"]:
+            raise serializers.ValidationError("password must be equal")
         return data
 
 
 class ResetPasswordSerializer(serializers.Serializer):
-    """
-    """
+    """ """
+
     new_password = PasswordField()
     new_password_again = PasswordField()
 
     def validate(self, data):
-        if data['new_password'] != data['new_password_again']:
-            raise serializers.ValidationError('password must be equal')
+        if data["new_password"] != data["new_password_again"]:
+            raise serializers.ValidationError("password must be equal")
         return data
 
 
@@ -175,32 +183,33 @@ class DownloadSerializer(serializers.Serializer):
 
 
 class PagesSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Pages
-        fields = ('slug', 'title', 'content',
-        'published', 'create_at', 'modified_at')
-        lookup_field = 'slug'
-        extra_kwargs = {
-            'url': {'lookup_field': 'slug'}
-        }
+        fields = ("slug", "title", "content", "published", "create_at", "modified_at")
+        lookup_field = "slug"
+        extra_kwargs = {"url": {"lookup_field": "slug"}}
+
 
 class RequestPasswordSerializer(serializers.Serializer):
     login = serializers.CharField()
 
     def validate(self, data):
         try:
-            user = User.objects.get(login=data['login'])
+            user = User.objects.get(login=data["login"])
             token = Token.to_reset(user)
             self.send_rest_password_email(user, token)
             return data
         except User.DoesNotExist:
-            raise serializers.ValidationError('User not found in database')
+            raise serializers.ValidationError("User not found in database")
 
     def send_rest_password_email(self, user, token):
-        html_content, string_content = get_string_and_html('email/reset_password.html', {'user': user, 'token': token})
-        subject = _('Olvido de Contraseña - ') + settings.SERVERNAME
-        email = EmailMultiAlternatives(subject, string_content, settings.EMAIL_HOST_USER, [user.email])
+        html_content, string_content = get_string_and_html(
+            "email/reset_password.html", {"user": user, "token": token}
+        )
+        subject = _("Olvido de Contraseña - ") + settings.SERVERNAME
+        email = EmailMultiAlternatives(
+            subject, string_content, settings.EMAIL_HOST_USER, [user.email]
+        )
         email.attach_alternative(html_content, "text/html")
         email.send()
 
@@ -211,8 +220,8 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Image
-        fields = ('name', 'types', 'image_url')
-    
+        fields = ("name", "types", "image_url")
+
     def get_image_url(self, image):
         photo_url = image.image.url
         return photo_url
@@ -225,11 +234,21 @@ class SiteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Site
-        fields = ('name', 'slug', 'images', 'initial_level',
-        'max_level', 'rates', 'facebook_url', 'facebook_enable',
-        'footer_menu', 'footer_info', 'footer_menu_enable', 'footer_info_enable', 
-        'forum_url', 'last_online')
-        lookup_field = 'slug'
-        extra_kwargs = {
-            'url': {'lookup_field': 'slug'}
-        }
+        fields = (
+            "name",
+            "slug",
+            "images",
+            "initial_level",
+            "max_level",
+            "rates",
+            "facebook_url",
+            "facebook_enable",
+            "footer_menu",
+            "footer_info",
+            "footer_menu_enable",
+            "footer_info_enable",
+            "forum_url",
+            "last_online",
+        )
+        lookup_field = "slug"
+        extra_kwargs = {"url": {"lookup_field": "slug"}}

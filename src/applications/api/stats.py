@@ -3,7 +3,7 @@ from django.db import connections
 
 class Stats:
     """
-        Helper class for retrive stats from database
+    Helper class for retrive stats from database
     """
 
     def __init__(self):
@@ -12,16 +12,16 @@ class Stats:
     @staticmethod
     def create_cursor(database: str):
         """
-            Cursor for database query direct
+        Cursor for database query direct
         """
         cursor = connections[database].cursor()
         return cursor
 
-    def get_last(self, minutes: str, interval='MINUTE'):
+    def get_last(self, minutes: str, interval="MINUTE"):
         """
-            Get last connections players
+        Get last connections players
         """
-        cursor = self.create_cursor('player')
+        cursor = self.create_cursor("player")
         query = f"""
             SELECT COUNT(*) as count
             FROM player 
@@ -34,20 +34,20 @@ class Stats:
 
     def get_count(self, database):
         cursor = self.create_cursor(database)
-        query = f'SELECT COUNT(*) from {database}'
+        query = f"SELECT COUNT(*) from {database}"
 
         cursor.execute(query)
         response = cursor.fetchall()[0][0]
         return response
 
     def get_format_stats(self):
-        online = self.get_last('5')
-        lastonline = self.get_last('24', interval='HOUR')
-        accounts = self.get_count('account')
-        players = self.get_count('player')
+        online = self.get_last("5")
+        lastonline = self.get_last("24", interval="HOUR")
+        accounts = self.get_count("account")
+        players = self.get_count("player")
         return {
-            'online': online,
-            'lastonline': lastonline,
-            'accounts':accounts,
-            'players':players
+            "online": online,
+            "lastonline": lastonline,
+            "accounts": accounts,
+            "players": players,
         }

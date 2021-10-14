@@ -6,23 +6,37 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0002_pages'),
+        ("api", "0002_pages"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Token',
+            name="Token",
             fields=[
-                ('id', models.UUIDField(default=None, editable=False, primary_key=True, serialize=False)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('token_type', models.CharField(choices=[('activation', 'Activation'), ('reset_password', 'Reset Password')], max_length=20)),
-                ('user_id', models.IntegerField()),
-                ('_status', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=None, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
+                ("create_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                (
+                    "token_type",
+                    models.CharField(
+                        choices=[
+                            ("activation", "Activation"),
+                            ("reset_password", "Reset Password"),
+                        ],
+                        max_length=20,
+                    ),
+                ),
+                ("user_id", models.IntegerField()),
+                ("_status", models.BooleanField(default=False)),
             ],
             options={
-                'verbose_name': 'Token',
-                'verbose_name_plural': 'Tokens',
+                "verbose_name": "Token",
+                "verbose_name_plural": "Tokens",
             },
         ),
     ]

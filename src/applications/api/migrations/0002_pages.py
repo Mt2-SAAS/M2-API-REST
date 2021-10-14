@@ -6,24 +6,29 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0001_initial'),
+        ("api", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Pages',
+            name="Pages",
             fields=[
-                ('id', models.UUIDField(default=None, editable=False, primary_key=True, serialize=False)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('slug', models.SlugField(max_length=100)),
-                ('title', models.CharField(max_length=100)),
-                ('content', models.TextField()),
-                ('published', models.BooleanField(default=True)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=None, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
+                ("create_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                ("slug", models.SlugField(max_length=100)),
+                ("title", models.CharField(max_length=100)),
+                ("content", models.TextField()),
+                ("published", models.BooleanField(default=True)),
             ],
             options={
-                'verbose_name': 'Pagina',
-                'verbose_name_plural': 'Paginas',
+                "verbose_name": "Pagina",
+                "verbose_name_plural": "Paginas",
             },
         ),
     ]

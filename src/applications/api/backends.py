@@ -7,25 +7,34 @@ from .utils import format_lazy
 
 
 ALLOWED_ALGORITHMS = (
-    'HS256',
-    'HS384',
-    'HS512',
-    'RS256',
-    'RS384',
-    'RS512',
+    "HS256",
+    "HS384",
+    "HS512",
+    "RS256",
+    "RS384",
+    "RS512",
 )
 
 
 class TokenBackend:
-    def __init__(self, algorithm, signing_key=None, verifying_key=None, audience=None, issuer=None):
+    def __init__(
+        self,
+        algorithm,
+        signing_key=None,
+        verifying_key=None,
+        audience=None,
+        issuer=None,
+    ):
         if algorithm not in ALLOWED_ALGORITHMS:
-            raise InvalidToken(format_lazy(_("Unrecognized algorithm type '{}'"), algorithm))
+            raise InvalidToken(
+                format_lazy(_("Unrecognized algorithm type '{}'"), algorithm)
+            )
 
         self.algorithm = algorithm
         self.signing_key = signing_key
         self.audience = audience
         self.issuer = issuer
-        if algorithm.startswith('HS'):
+        if algorithm.startswith("HS"):
             self.verifying_key = signing_key
         else:
             self.verifying_key = verifying_key
@@ -36,9 +45,9 @@ class TokenBackend:
         """
         jwt_payload = payload.copy()
         if self.audience is not None:
-            jwt_payload['aud'] = self.audience
+            jwt_payload["aud"] = self.audience
         if self.issuer is not None:
-            jwt_payload['iss'] = self.issuer
+            jwt_payload["iss"] = self.issuer
 
         token = jwt.encode(jwt_payload, self.signing_key, algorithm=self.algorithm)
         return token
@@ -51,8 +60,14 @@ class TokenBackend:
         signature check fails, or if its 'exp' claim indicates it has expired.
         """
         try:
-            return jwt.decode(token, self.verifying_key, algorithms=[self.algorithm], verify=verify,
-                              audience=self.audience, issuer=self.issuer,
-                              options={'verify_aud': self.audience is not None})
+            return jwt.decode(
+                token,
+                self.verifying_key,
+                algorithms=[self.algorithm],
+                verify=verify,
+                audience=self.audience,
+                issuer=self.issuer,
+                options={"verify_aud": self.audience is not None},
+            )
         except InvalidTokenError:
-            raise InvalidToken(_('Token is invalid or expired'))
+            raise InvalidToken(_("Token is invalid or expired"))

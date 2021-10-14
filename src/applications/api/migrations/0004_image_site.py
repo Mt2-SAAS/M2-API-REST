@@ -6,49 +6,65 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0003_token'),
+        ("api", "0003_token"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Image',
+            name="Image",
             fields=[
-                ('id', models.UUIDField(default=None, editable=False, primary_key=True, serialize=False)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('image', models.ImageField(upload_to='static/upload')),
-                ('types', models.CharField(choices=[('logo', 'Logo'), ('background', 'Imagen Fondo')], max_length=20)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=None, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
+                ("create_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                ("image", models.ImageField(upload_to="static/upload")),
+                (
+                    "types",
+                    models.CharField(
+                        choices=[("logo", "Logo"), ("background", "Imagen Fondo")],
+                        max_length=20,
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Imagen',
-                'verbose_name_plural': 'Imagenes',
+                "verbose_name": "Imagen",
+                "verbose_name_plural": "Imagenes",
             },
         ),
         migrations.CreateModel(
-            name='Site',
+            name="Site",
             fields=[
-                ('id', models.UUIDField(default=None, editable=False, primary_key=True, serialize=False)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('modified_at', models.DateTimeField(auto_now=True)),
-                ('name', models.CharField(max_length=255)),
-                ('slug', models.SlugField(max_length=100)),
-                ('initial_level', models.CharField(max_length=10)),
-                ('max_level', models.CharField(max_length=10)),
-                ('rates', models.CharField(max_length=255)),
-                ('facebook_url', models.CharField(max_length=255)),
-                ('facebook_enable', models.BooleanField(default=False)),
-                ('footer_info', models.CharField(max_length=255)),
-                ('footer_menu_enable', models.BooleanField(default=False)),
-                ('footer_info_enable', models.BooleanField(default=False)),
-                ('forum_url', models.CharField(max_length=255)),
-                ('last_online', models.BooleanField(default=False)),
-                ('footer_menu', models.ManyToManyField(to='api.Pages')),
-                ('images', models.ManyToManyField(to='api.Image')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=None, editable=False, primary_key=True, serialize=False
+                    ),
+                ),
+                ("create_at", models.DateTimeField(auto_now_add=True)),
+                ("modified_at", models.DateTimeField(auto_now=True)),
+                ("name", models.CharField(max_length=255)),
+                ("slug", models.SlugField(max_length=100)),
+                ("initial_level", models.CharField(max_length=10)),
+                ("max_level", models.CharField(max_length=10)),
+                ("rates", models.CharField(max_length=255)),
+                ("facebook_url", models.CharField(max_length=255)),
+                ("facebook_enable", models.BooleanField(default=False)),
+                ("footer_info", models.CharField(max_length=255)),
+                ("footer_menu_enable", models.BooleanField(default=False)),
+                ("footer_info_enable", models.BooleanField(default=False)),
+                ("forum_url", models.CharField(max_length=255)),
+                ("last_online", models.BooleanField(default=False)),
+                ("footer_menu", models.ManyToManyField(to="api.Pages")),
+                ("images", models.ManyToManyField(to="api.Image")),
             ],
             options={
-                'verbose_name': 'Sitio',
-                'verbose_name_plural': 'Sitios',
+                "verbose_name": "Sitio",
+                "verbose_name_plural": "Sitios",
             },
         ),
     ]

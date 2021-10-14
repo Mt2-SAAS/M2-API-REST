@@ -15,8 +15,8 @@ class Pages(Base):
     objects = PublishedQuerySet.as_manager()
 
     def __str__(self):
-        return f'<Page ({self.title})>'
+        return f"<Page ({self.title})>"
 
     class Meta:
-        verbose_name = 'Pagina'
-        verbose_name_plural = 'Paginas'
+        verbose_name = "Pagina"
+        verbose_name_plural = "Paginas"
