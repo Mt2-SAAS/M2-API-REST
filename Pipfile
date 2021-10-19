@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+djangorestframework = "==3.12.2"
+django-cors-headers = "==3.6.0"
+mysqlclient = "==1.4.6"
+paymentwall-python = {ref = "chore/Add-CIDR-Validation", git = "https://github.com/luisito666/paymentwall-python.git"}
+Django = "==3.1.13"
+PyMySQL = "==0.10.1"
+PyJWT = "==2.0.0"
+Pillow = "==8.3.2"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
