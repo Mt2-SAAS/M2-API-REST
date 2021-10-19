@@ -12,9 +12,7 @@ from datetime import datetime, timedelta
 from django.utils.translation import gettext_lazy as _
 
 # From local base models and managers
-from ..base import (
-    AbstractBaseAccount
-)
+from ..base import AbstractBaseAccount
 
 # Local Manager
 from .manager import AccountManager
@@ -50,7 +48,7 @@ class AbstractAccount(AbstractBaseAccount):
     money_drop_rate_expire = models.DateTimeField(default=settings.BUFFSTUF)
     ttl_cash = models.IntegerField(default=0)
     ttl_mileage = models.IntegerField(default=0)
-    channel_company = models.CharField(max_length=30, default='')
+    channel_company = models.CharField(max_length=30, default="")
     last_play = models.DateTimeField(default=settings.ACTIVATE)
     ticket_id = models.CharField(max_length=30)
     coins = models.IntegerField(default=0)
@@ -73,10 +71,10 @@ class AbstractAccount(AbstractBaseAccount):
     type1_active = models.IntegerField(default=0)
     kwix_coins = models.IntegerField(blank=True, null=True)
     kwix_admin = models.IntegerField(default=0)
-    kwix_chm = models.CharField(max_length=255, default='')
-    kwix_chm_code = models.CharField(max_length=255, default='')
-    last_ip = models.CharField(max_length=255, default='')
-    register_ip = models.CharField(max_length=256, default='')
+    kwix_chm = models.CharField(max_length=255, default="")
+    kwix_chm_code = models.CharField(max_length=255, default="")
+    last_ip = models.CharField(max_length=255, default="")
+    register_ip = models.CharField(max_length=256, default="")
     user_level = models.SmallIntegerField(default=0)
     ban_reason = models.CharField(max_length=256)
     ban_expire = models.CharField(max_length=10)
@@ -100,26 +98,27 @@ class AbstractAccount(AbstractBaseAccount):
 
     objects = AccountManager()
 
-    USERNAME_FIELD = 'login'
-    REQUIRED_FIELDS = ['real_name', 'social_id', 'email']
+    USERNAME_FIELD = "login"
+    REQUIRED_FIELDS = ["real_name", "social_id", "email"]
 
     class Meta:
         abstract = True
-    
+
     def __str__(self):
-        return f'{self.login}'
+        return f"{self.login}"
 
 
 class Account(AbstractAccount):
     """
-        You can add more options to account
+    You can add more options to account
     """
 
     class Meta:
         """
-            This are a legacy model and no need migrations.
+        This are a legacy model and no need migrations.
         """
+
         managed = False
-        db_table = 'account'
-        verbose_name = _('Account')
-        verbose_name_plural = _('Accounts')
+        db_table = "account"
+        verbose_name = _("Account")
+        verbose_name_plural = _("Accounts")

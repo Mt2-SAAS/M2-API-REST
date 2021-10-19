@@ -16,8 +16,8 @@ class Download(Base):
     objects = PublishedQuerySet.as_manager()
 
     def __str__(self):
-        return f'<Download ({self.link})>'
+        return f"<Download ({self.link})>"
 
     class Meta:
-        verbose_name = 'Download'
-        verbose_name_plural = 'Downloads'
+        verbose_name = "Download"
+        verbose_name_plural = "Downloads"

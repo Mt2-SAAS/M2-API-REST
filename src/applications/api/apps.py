@@ -3,6 +3,7 @@ from django.apps import AppConfig
 
 class APIConfig(AppConfig):
     """
-        API Module.
+    API Module.
     """
-    name = 'api'
+
+    name = "api"

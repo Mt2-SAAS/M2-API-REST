@@ -6,30 +6,23 @@ from django.conf import settings
 from django.utils.crypto import get_random_string, salted_hmac
 
 # Local Hasher
-from .hashers import (
-    make_password, 
-    validate_password,
-    is_password_usable
-)
+from .hashers import make_password, validate_password, is_password_usable
 
 # Translation
 from django.utils.translation import gettext_lazy as _
 
 # import constant for status
-from core.settings import (
-    BANNED,
-    ACCEPT
-)
+from core.settings import BANNED, ACCEPT
 
 # Account Base
 class AbstractBaseAccount(models.Model):
     STATUS_ACCOUNT = (
-        (ACCEPT, _('Available')),
-        (BANNED, _('Banned')),
+        (ACCEPT, _("Available")),
+        (BANNED, _("Banned")),
     )
-    password = models.CharField(_('password'), max_length=45)
+    password = models.CharField(_("password"), max_length=45)
     status = models.CharField(max_length=8, default="OK", choices=STATUS_ACCOUNT)
-    availdt = models.DateTimeField(db_column='availDt', default=settings.ACTIVATE)
+    availdt = models.DateTimeField(db_column="availDt", default=settings.ACTIVATE)
 
     class Meta:
         abstract = True
@@ -45,20 +38,20 @@ class AbstractBaseAccount(models.Model):
     @property
     def is_banned(self):
         """
-            Verify is user is banned
+        Verify is user is banned
         """
         return self.status == BANNED
 
     @property
     def is_active(self):
         """
-            Verify if user is active
+        Verify if user is active
         """
         return self.availdt.year == settings.AVAILDT.year
 
     def set_active_user(self):
         """
-            Active User
+        Active User
         """
         if not self.is_active:
             self.availdt = settings.AVAILDT
@@ -86,28 +79,29 @@ class AbstractBaseAccount(models.Model):
             self.password,
         ).hexdigest()
 
+
 # Base Manager
 class BaseAccountManager(models.Manager):
-    
     @classmethod
     def normalize_email(cls, email):
         """
         Normalize the email address by lowercasing the domain part of it.
         """
-        email = email or ''
+        email = email or ""
         try:
-            email_name, domain_part = email.strip().rsplit('@', 1)
+            email_name, domain_part = email.strip().rsplit("@", 1)
         except ValueError:
             pass
         else:
-            email = email_name + '@' + domain_part.lower()
+            email = email_name + "@" + domain_part.lower()
         return email
-    
-    def make_random_password(self, length=10,
-                             allowed_chars='abcdefghjkmnpqrstuvwxyz'
-                                           'ABCDEFGHJKLMNPQRSTUVWXYZ'
-                                            '23456789'):
+
+    def make_random_password(
+        self,
+        length=10,
+        allowed_chars="abcdefghjkmnpqrstuvwxyz" "ABCDEFGHJKLMNPQRSTUVWXYZ" "23456789",
+    ):
         return get_random_string(length, allowed_chars)
-    
+
     def get_by_natural_key(self, username):
         return self.get(**{self.model.USERNAME_FIELD: username})

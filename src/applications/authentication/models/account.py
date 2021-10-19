@@ -13,9 +13,7 @@ from datetime import datetime, timedelta
 from django.utils.translation import gettext_lazy as _
 
 # From local base models and managers
-from ..base import (
-    AbstractBaseAccount
-)
+from ..base import AbstractBaseAccount
 
 # Local Manager
 from .manager import AccountManager
@@ -41,26 +39,27 @@ class AbstractAccount(AbstractBaseAccount):
 
     objects = AccountManager()
 
-    USERNAME_FIELD = 'login'
-    REQUIRED_FIELDS = ['real_name', 'social_id', 'email']
+    USERNAME_FIELD = "login"
+    REQUIRED_FIELDS = ["real_name", "social_id", "email"]
 
     class Meta:
         abstract = True
 
     def __str__(self):
-        return f'{self.login}'
+        return f"{self.login}"
 
 
 class Account(AbstractAccount):
     """
-        You can add more options to account
+    You can add more options to account
     """
 
     class Meta:
         """
-            This are a legacy model and no need migrations.
+        This are a legacy model and no need migrations.
         """
+
         managed = False
-        db_table = 'account'
-        verbose_name = _('Account')
-        verbose_name_plural = _('Accounts')
+        db_table = "account"
+        verbose_name = _("Account")
+        verbose_name_plural = _("Accounts")

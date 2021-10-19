@@ -1,10 +1,10 @@
 # Django Stuff
-asgiref==3.3.1
+# asgiref==3.3.1
 Django==3.1.13
 djangorestframework==3.12.2
 django-cors-headers==3.6.0
-pytz==2020.5
-sqlparse==0.4.2
+# pytz==2020.5
+# sqlparse==0.4.2
 
 # SQL Conections
 mysqlclient==1.4.6
@@ -16,4 +16,4 @@ Pillow==8.3.2
 
 # PaymentWall
 # paymentwall-python==1.0.8
-git+https://github.com/luisito666/paymentwall-python.git@chore/Add-CIDR-Validation
+git+https://github.com/luisito666/paymentwall-python.git@chore/Add-CIDR-Validation#egg=paymentwall-python

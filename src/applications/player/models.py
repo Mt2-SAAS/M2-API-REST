@@ -57,10 +57,10 @@ class Player(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'player'
+        db_table = "player"
 
     def __str__(self):
-        return f'{self.name}'
+        return f"{self.name}"
 
 
 class Guild(models.Model):
@@ -79,7 +79,7 @@ class Guild(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'guild'
+        db_table = "guild"
 
     def __str__(self):
-        return f'{self.name}'
+        return f"{self.name}"

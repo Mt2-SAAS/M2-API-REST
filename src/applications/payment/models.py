@@ -15,11 +15,11 @@ class PaymentLogs(Base):
     status = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'<PaymentLogs ({self.pk})>'
+        return f"<PaymentLogs ({self.pk})>"
 
     class Meta:
-        verbose_name = 'PaymentLog'
-        verbose_name_plural = 'PaymentLogs'
+        verbose_name = "PaymentLog"
+        verbose_name_plural = "PaymentLogs"
 
 
 class PaymentCode(Base):
@@ -29,11 +29,11 @@ class PaymentCode(Base):
     account_id = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f'<PaymentCodes ({self.pk})>'
+        return f"<PaymentCodes ({self.pk})>"
 
     class Meta:
-        verbose_name = 'PaymentCode'
-        verbose_name_plural = 'PaymentCodes'
+        verbose_name = "PaymentCode"
+        verbose_name_plural = "PaymentCodes"
 
     def use_code(self, user):
         user.coins = user.coins + self.coins

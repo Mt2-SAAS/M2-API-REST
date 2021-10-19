@@ -1,4 +1,1 @@
-from .forms import (
-    AccountCreationForm,
-    AccountEditForm
-)
+from .forms import AccountCreationForm, AccountEditForm

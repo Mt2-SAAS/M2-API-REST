@@ -7,14 +7,13 @@ from django.db import models
 
 class Base(models.Model):
     """
-        Base model that provide all necesary functionality.
+    Base model that provide all necesary functionality.
     """
 
     id = models.UUIDField(primary_key=True, default=None, editable=False)
 
     create_at = models.DateTimeField(auto_now_add=True, editable=False)
     modified_at = models.DateTimeField(auto_now=True)
-
 
     class Meta:
         abstract = True
@@ -35,7 +34,7 @@ class BaseDelete(Base):
 
     class Meta(Base.Meta):
         abstract = True
-    
+
     def delete(self):
         self._deleted = True
         self.save()
