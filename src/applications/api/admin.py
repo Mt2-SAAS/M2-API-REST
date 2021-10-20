@@ -1,10 +1,8 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
 # Locals Models
 from .models import Download, Pages, Token, Site, Image
-
-# Translation
-from django.utils.translation import gettext_lazy as _
 
 
 class DownloadAdmin(admin.ModelAdmin):

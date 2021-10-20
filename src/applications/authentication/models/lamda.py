@@ -5,9 +5,6 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 
-# Utils Timezone
-from datetime import datetime, timedelta
-
 # Translation
 from django.utils.translation import gettext_lazy as _
 
