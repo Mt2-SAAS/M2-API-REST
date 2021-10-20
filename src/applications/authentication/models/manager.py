@@ -19,7 +19,14 @@ class AccountManager(BaseAccountManager):
         user.save(using=self._db)
         return user
 
+    # fmt: off
     def create_account(
         self, login, password=None, email=None, real_name=None, social_id=None
     ):
-        return self._create_account(login, password, email, real_name, social_id)
+        return self._create_account(
+            login,
+            password,
+            email,
+            real_name,
+            social_id
+        )

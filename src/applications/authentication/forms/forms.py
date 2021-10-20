@@ -13,6 +13,7 @@ from . import validations
 from ..models import Account
 
 
+# fmt: off
 class AccountCreationForm(forms.ModelForm):
     login = forms.CharField(
         label=_("Nombre de usuario"),
@@ -34,7 +35,10 @@ class AccountCreationForm(forms.ModelForm):
         max_length=50,
         error_messages=errors.MESSAGES_GENERAL,
     )
-    email = forms.EmailField(max_length=50, error_messages=errors.MESSAGES_EMAIL)
+    email = forms.EmailField(
+        max_length=50,
+        error_messages=errors.MESSAGES_EMAIL
+    )
     social_id = forms.IntegerField(
         label=_("Codigo de borrado"),
         error_messages=errors.MESSAGES_GENERAL,
@@ -61,6 +65,7 @@ class AccountCreationForm(forms.ModelForm):
         return user
 
 
+# fmt: off
 class AccountEditForm(forms.ModelForm):
     login = forms.CharField(
         label=_("Nombre de usuario"),
@@ -69,17 +74,32 @@ class AccountEditForm(forms.ModelForm):
         error_messages=errors.MESSAGES_USER,
         validators=[validations.white_spaces],
     )
+    status = forms.ChoiceField(
+        choices=Account.STATUS_ACCOUNT,
+        label=_("Estado")
+    )
     real_name = forms.CharField(
         label=_("Nombre real"),
         min_length=4,
         max_length=50,
         error_messages=errors.MESSAGES_GENERAL,
     )
-    email = forms.EmailField(max_length=50, error_messages=errors.MESSAGES_EMAIL)
+    email = forms.EmailField(
+        max_length=50,
+        error_messages=errors.MESSAGES_EMAIL
+    )
+    coins = forms.IntegerField(
+        label=_("MDs"),
+        widget=forms.TextInput(attrs={"readonly": "readonly"})
+    )
     social_id = forms.IntegerField(
         label=_("Codigo de borrado"),
         error_messages=errors.MESSAGES_GENERAL,
         validators=[validations.seven_characters],
+    )
+    create_time = forms.DateTimeField(
+        label=_("Fecha de creacion"),
+        widget=forms.DateTimeInput(attrs={"readonly": "readonly"})
     )
 
     class Meta:
@@ -91,4 +111,5 @@ class AccountEditForm(forms.ModelForm):
             "email",
             "coins",
             "social_id",
+            "create_time"
         ]

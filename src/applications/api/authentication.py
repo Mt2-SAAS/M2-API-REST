@@ -1,10 +1,11 @@
 from django.utils.translation import ugettext_lazy as _
+from django.utils.module_loading import import_string
 from rest_framework import HTTP_HEADER_ENCODING, authentication
+from django.conf import settings
 
 from .exceptions import AuthenticationFailed, InvalidToken, TokenError
-
-from django.conf import settings
 from .state import User
+
 
 AUTH_HEADER_TYPES = settings.AUTH_HEADER_TYPES
 
@@ -85,16 +86,14 @@ class JWTAuthentication(authentication.BaseAuthentication):
         messages = []
         for string in settings.AUTH_TOKEN_CLASSES:
             try:
-                from django.utils.module_loading import import_string
-
-                AuthToken = import_string(string)
-                return AuthToken(raw_token)
-            except TokenError as e:
+                auth_token = import_string(string)
+                return auth_token(raw_token)
+            except TokenError as execpt:
                 messages.append(
                     {
-                        "token_class": AuthToken.__name__,
-                        "token_type": AuthToken.token_type,
-                        "message": e.args[0],
+                        "token_class": auth_token.__name__,
+                        "token_type": auth_token.token_type,
+                        "message": execpt.args[0],
                     }
                 )
 

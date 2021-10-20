@@ -116,6 +116,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
 
+# fmt: off
 class CurrentUserSerializer(serializers.ModelSerializer):
     """
     Current user serializer
@@ -123,7 +124,14 @@ class CurrentUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("login", "status", "real_name", "email", "coins", "create_time")
+        fields = (
+            "login",
+            "status",
+            "real_name",
+            "email",
+            "coins",
+            "create_time"
+        )
 
 
 class RankingPlayerSerializer(serializers.Serializer):
@@ -182,10 +190,18 @@ class DownloadSerializer(serializers.Serializer):
     modified_at = serializers.DateTimeField()
 
 
+# fmt: off
 class PagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pages
-        fields = ("slug", "title", "content", "published", "create_at", "modified_at")
+        fields = (
+            "slug",
+            "title",
+            "content",
+            "published",
+            "create_at",
+            "modified_at"
+        )
         lookup_field = "slug"
         extra_kwargs = {"url": {"lookup_field": "slug"}}
 
