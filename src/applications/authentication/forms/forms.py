@@ -90,7 +90,7 @@ class AccountEditForm(forms.ModelForm):
     )
     coins = forms.IntegerField(
         label=_("MDs"),
-        widget=forms.TextInput(attrs={"readonly": "readonly"})
+        # widget=forms.TextInput(attrs={"readonly": "readonly"})
     )
     social_id = forms.IntegerField(
         label=_("Codigo de borrado"),

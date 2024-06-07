@@ -5,26 +5,33 @@ from django.db import models
 from django.conf import settings
 from django.utils.crypto import get_random_string, salted_hmac
 
-# Local Hasher
-from .hashers import make_password, validate_password, is_password_usable
-
 # Translation
 from django.utils.translation import gettext_lazy as _
 
 # import constant for status
 from core.settings import BANNED, ACCEPT
 
+# Local Hasher
+from .hashers import make_password, validate_password, is_password_usable
+
+
 # Account Base
 class AbstractBaseAccount(models.Model):
+    """
+        Base Account
+    """
     STATUS_ACCOUNT = (
         (ACCEPT, _("Available")),
         (BANNED, _("Banned")),
     )
     password = models.CharField(_("password"), max_length=45)
     status = models.CharField(max_length=8, default="OK", choices=STATUS_ACCOUNT)
-    availdt = models.DateTimeField(db_column="availDt", default=settings.ACTIVATE)
+    # availdt = models.DateTimeField(db_column="availDt", default=settings.ACTIVATE)
 
     class Meta:
+        """
+            Metaclass Config
+        """
         abstract = True
 
     @property
@@ -53,20 +60,32 @@ class AbstractBaseAccount(models.Model):
         """
         Active User
         """
-        if not self.is_active:
-            self.availdt = settings.AVAILDT
+        #if not self.is_active:
+        #    self.availdt = settings.AVAILDT
 
     def set_password(self, raw_password):
+        """
+            Set Password
+        """
         self.password = make_password(raw_password)
-        self._password = raw_password
+        # self._password = raw_password
 
     def check_password(self, raw_password):
+        """
+            Check Password
+        """
         return validate_password(self.password, raw_password)
 
     def set_unusable_password(self):
+        """
+            Set unusable password
+        """
         self.password = make_password(None)
 
     def has_usable_password(self):
+        """
+            Verify usable password
+        """
         return is_password_usable(self.password)
 
     def get_session_auth_hash(self):
@@ -82,6 +101,9 @@ class AbstractBaseAccount(models.Model):
 
 # Base Manager
 class BaseAccountManager(models.Manager):
+    """
+        Base Account Manager
+    """
     @classmethod
     def normalize_email(cls, email):
         """
@@ -101,7 +123,13 @@ class BaseAccountManager(models.Manager):
         length=10,
         allowed_chars="abcdefghjkmnpqrstuvwxyz" "ABCDEFGHJKLMNPQRSTUVWXYZ" "23456789",
     ):
+        """
+            Make ramdon password
+        """
         return get_random_string(length, allowed_chars)
 
     def get_by_natural_key(self, username):
+        """
+            Get username by natural keys
+        """
         return self.get(**{self.model.USERNAME_FIELD: username})

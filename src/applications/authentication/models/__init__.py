@@ -5,4 +5,4 @@
 
 """
 
-from .lamda import Account
+from ._account import Account
