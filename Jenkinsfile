@@ -1,5 +1,26 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+            yaml '''
+                apiVersion: v1
+                kind: Pod
+                spec:
+                containers:
+                - name: docker
+                    image: docker:latest
+                    command:
+                    - cat
+                    tty: true
+                    volumeMounts:
+                    - mountPath: /var/run/docker.sock
+                    name: docker-sock
+                volumes:
+                - name: docker-sock
+                    hostPath:
+                    path: /var/run/docker.sock    
+                '''
+        }
+    }
 
 
     options {
@@ -13,8 +34,10 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                   dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .") 
+                container('docker') {
+                    script {
+                    dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .") 
+                    }
                 }
             }
         }
@@ -30,9 +53,11 @@ pipeline {
                 branch 'master'
             }
             steps {
-                script {
-                    docker.withRegistry("", "DockerHubCredentials") {
-                        dockerImage.push()
+                container('docker') {
+                    script {
+                        docker.withRegistry("", "DockerHubCredentials") {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
@@ -43,9 +68,11 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                script {
-                    docker.withRegistry("", "DockerHubCredentials") {
-                        dockerImage.push()
+                container('docker') {
+                    script {
+                        docker.withRegistry("", "DockerHubCredentials") {
+                            dockerImage.push()
+                        }
                     }
                 }
             }
