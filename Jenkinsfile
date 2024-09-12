@@ -36,10 +36,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                container('docker') {
-                    script {
-                    dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .") 
-                    }
+                script {
+                dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .") 
                 }
             }
         }
@@ -55,11 +53,9 @@ pipeline {
                 branch 'master'
             }
             steps {
-                container('docker') {
-                    script {
-                        docker.withRegistry("", "DockerHubCredentials") {
-                            dockerImage.push()
-                        }
+                script {
+                    docker.withRegistry("", "DockerHubCredentials") {
+                        dockerImage.push()
                     }
                 }
             }
@@ -70,11 +66,9 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                container('docker') {
-                    script {
-                        docker.withRegistry("", "DockerHubCredentials") {
-                            dockerImage.push()
-                        }
+                script {
+                    docker.withRegistry("", "DockerHubCredentials") {
+                        dockerImage.push()
                     }
                 }
             }
