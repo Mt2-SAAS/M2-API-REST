@@ -1,26 +1,12 @@
 pipeline {
     agent {
         kubernetes {
-            yaml '''
-                apiVersion: v1
-                kind: Pod
-                spec:
-                containers:
-                - name: docker
-                  image: docker:latest
-                  command:
-                  - cat
-                  tty: true
-                  volumeMounts:
-                  - mountPath: /var/run/docker.sock
-                  securityContext:
-                    privileged: true
-                name: docker-sock
-                volumes:
-                - name: docker-sock
-                  hostPath:
-                  path: /var/run/docker.sock    
-                '''
+            containerTemplate {
+                   name 'docker'
+                   image 'docker:latest'
+                   ttyEnabled true
+                   command 'cat'
+            }
         }
     }
 
@@ -37,7 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .") 
+                   dockerImage = docker.build("${env.ARTIFACT_ID}", "-f compose/production/django/Dockerfile .")
                 }
             }
         }
