@@ -8,7 +8,7 @@ djangorestframework = "==3.12.2"
 django-cors-headers = "==3.6.0"
 mysqlclient = "==1.4.6"
 paymentwall-python = {ref = "chore/Add-CIDR-Validation", git = "https://github.com/luisito666/paymentwall-python.git"}
-Django = "==3.1.13"
+Django = "==3.1.14"
 PyMySQL = "==0.10.1"
 PyJWT = "==2.0.0"
 Pillow = "==9.3.0"

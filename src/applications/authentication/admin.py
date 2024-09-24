@@ -8,8 +8,11 @@ from .models import Account
 
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ("id", "login", "real_name", "email", "status", "coins", "availdt")
-    search_fields = ["refer_id", "login", "email"]
+    """
+        Account Admin
+    """
+    list_display = ("id", "login", "email", "status")
+    search_fields = ["login", "email"]
     form = AccountEditForm
     add_form = AccountCreationForm
 
