@@ -17,6 +17,7 @@ pipeline {
 
     environment {
         ARTIFACT_ID = "luisito666/m2-api-rest:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+        DOCKER_HOST = "172.16.1.25"
     }
 
     stages {
