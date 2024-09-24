@@ -92,7 +92,13 @@ class TokenObtainPairSerializer(TokenObtainSerializer):
 
 
 class RegisterSerializer(serializers.ModelSerializer):
+    """
+        Register Serializers
+    """
     def create(self, validated_data):
+        """
+            Create User
+        """
         user = User.objects.create_account(**validated_data)
         user.save()
         token = Token.to_active(user)
@@ -100,6 +106,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
     def send_activation_email(self, user, token):
+        """
+            Send Activation email
+        """
         html_content, string_content = get_string_and_html(
             "email/email_confirmation.html", {"user": user, "token": token}
         )
@@ -111,6 +120,9 @@ class RegisterSerializer(serializers.ModelSerializer):
         email.send()
 
     class Meta:
+        """
+            Metaclass Config
+        """
         model = User
         fields = ("login", "password", "email", "real_name", "social_id")
         extra_kwargs = {"password": {"write_only": True}}
@@ -123,6 +135,9 @@ class CurrentUserSerializer(serializers.ModelSerializer):
     """
 
     class Meta:
+        """
+            Metaclass Config
+        """
         model = User
         fields = (
             "login",
@@ -157,25 +172,35 @@ class RankingGuildSerializer(serializers.Serializer):
 
 
 class ChangePasswordSerializer(serializers.Serializer):
-    """ """
+    """
+        Change Password Serializers 
+    """
 
     current_password = PasswordField()
     new_password = PasswordField()
     new_password_again = PasswordField()
 
     def validate(self, data):
+        """
+            Validate password must be ecual
+        """
         if data["new_password"] != data["new_password_again"]:
             raise serializers.ValidationError("password must be equal")
         return data
 
 
 class ResetPasswordSerializer(serializers.Serializer):
-    """ """
+    """
+        Reset password serializer
+    """
 
     new_password = PasswordField()
     new_password_again = PasswordField()
 
     def validate(self, data):
+        """
+            Validate password must be ecual
+        """
         if data["new_password"] != data["new_password_again"]:
             raise serializers.ValidationError("password must be equal")
         return data
