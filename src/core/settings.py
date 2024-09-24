@@ -97,7 +97,7 @@ DATABASES = {
         "HOST": os.environ["DATABASE_HOST"],
         "PORT": os.environ["DATABASE_PORT"],
         "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES';",
+            #"init_command": "SET sql_mode='STRICT_TRANS_TABLES';",
         },
     },
     "default": {
@@ -117,7 +117,7 @@ DATABASES = {
         "HOST": os.environ["DATABASE_HOST"],
         "PORT": os.environ["DATABASE_PORT"],
         "OPTIONS": {
-            "init_command": "CREATE DATABASE IF NOT EXISTS django_metin2;",
+            # "init_command": "CREATE DATABASE IF NOT EXISTS django_metin2;",
         },
     },
 }
@@ -254,3 +254,28 @@ EMAIL_BACKEND = (
     if DEBUG
     else "django.core.mail.backends.smtp.EmailBackend"
 )
+
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'django_queries.log',  # Choose a file name and path
+        },
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
