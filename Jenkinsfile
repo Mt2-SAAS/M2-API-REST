@@ -37,7 +37,7 @@ pipeline {
 
         stage('Publish master') {
             when {
-                branch 'master'
+                branch 'main'
             }
             steps {
                 script {
