@@ -6,11 +6,17 @@ from .models import Player, Guild
 
 
 class PlayerAdmin(admin.ModelAdmin):
-    list_display = ("id", "account_id", "name", "level", "exp", "last_play", "ip")
+    """
+        Player Admin
+    """
+    list_display = ("id", "account_id", "name", "level", "exp")
     search_fields = ["name"]
 
 
 class GuildAdmin(admin.ModelAdmin):
+    """
+        Guild Admin
+    """
     list_display = ("id", "name", "master", "level", "exp")
     search_fields = ["name"]
 
