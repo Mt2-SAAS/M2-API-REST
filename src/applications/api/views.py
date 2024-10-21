@@ -160,6 +160,9 @@ class CurrentUserPlayersView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
+        """
+            Modify the behaibord for resquest the players associate to the user session.
+        """
         userid = request.user.id
         players = Player.objects.filter(account_id=userid)
         serializer = self.serializer_class(players, many=True)

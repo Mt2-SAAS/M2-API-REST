@@ -5,57 +5,20 @@ from django.db import models
 
 
 class Player(models.Model):
+    """
+        Player table.
+        Basic fields for maximun compatibility
+    """
     account_id = models.PositiveIntegerField()
     name = models.CharField(max_length=24)
     job = models.PositiveIntegerField()
-    voice = models.IntegerField()
-    dir = models.IntegerField()
-    x = models.IntegerField()
-    y = models.IntegerField()
-    z = models.IntegerField()
-    map_index = models.IntegerField()
-    exit_x = models.IntegerField()
-    exit_y = models.IntegerField()
-    exit_map_index = models.IntegerField()
-    hp = models.IntegerField()
-    mp = models.IntegerField()
-    stamina = models.SmallIntegerField()
-    random_hp = models.SmallIntegerField()
-    random_sp = models.SmallIntegerField()
-    playtime = models.IntegerField()
     level = models.PositiveIntegerField()
-    level_step = models.IntegerField()
-    st = models.SmallIntegerField()
-    ht = models.SmallIntegerField()
-    dx = models.SmallIntegerField()
-    iq = models.SmallIntegerField()
     exp = models.IntegerField()
-    gold = models.IntegerField()
-    stat_point = models.SmallIntegerField()
-    skill_point = models.SmallIntegerField()
-    quickslot = models.TextField(blank=True, null=True)
-    ip = models.CharField(max_length=15, blank=True, null=True)
-    part_main = models.IntegerField()
-    part_base = models.IntegerField()
-    part_hair = models.IntegerField()
-    part_sash = models.PositiveSmallIntegerField()
-    skill_group = models.IntegerField()
-    skill_level = models.TextField(blank=True, null=True)
-    alignment = models.IntegerField()
-    prestige = models.PositiveSmallIntegerField()
-    last_play = models.DateTimeField()
-    change_name = models.IntegerField()
-    mobile = models.CharField(max_length=24, blank=True, null=True)
-    sub_skill_point = models.SmallIntegerField()
-    stat_reset_count = models.IntegerField()
-    horse_hp = models.SmallIntegerField()
-    horse_stamina = models.SmallIntegerField()
-    horse_level = models.PositiveIntegerField()
-    horse_hp_droptime = models.PositiveIntegerField()
-    horse_riding = models.IntegerField()
-    horse_skill_point = models.SmallIntegerField()
 
     class Meta:
+        """
+            Add Meta information
+        """
         managed = False
         db_table = "player"
 
@@ -64,6 +27,10 @@ class Player(models.Model):
 
 
 class Guild(models.Model):
+    """
+        Guild Table
+        Basic fields for maximun compatibility
+    """
     name = models.CharField(max_length=12)
     sp = models.SmallIntegerField()
     master = models.PositiveIntegerField()
@@ -78,6 +45,9 @@ class Guild(models.Model):
     gold = models.IntegerField()
 
     class Meta:
+        """
+            Meta Information
+        """
         managed = False
         db_table = "guild"
 
