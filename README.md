@@ -30,7 +30,7 @@ The main goal of this project is provide a rapid way to implements services for 
 ## How to Install?
 
 ```
-git clone git@github.com:New-Blod-Team/M2-API-REST.git
+git clone git@github.com:Mt2-SAAS/M2-API-REST.git
 cd M2-API-REST/
 make build
 ```
